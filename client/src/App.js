@@ -11,12 +11,16 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Membership from "./pages/Membership";
+import Trainer from "./pages/Trainer";
+
 import Admin from "./pages/Admin";
+
 import AdminRoute from "./components/AdminRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
+
   return (
 
     <BrowserRouter>
@@ -44,13 +48,18 @@ function App() {
         />
 
         <Route
-  path="/admin"
-  element={
-    <AdminRoute>
-      <Admin />
-    </AdminRoute>
-  }
-/>
+          path="/trainer"
+          element={<Trainer />}
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          }
+        />
 
         <Route
           path="/dashboard"
@@ -66,6 +75,7 @@ function App() {
     </BrowserRouter>
 
   );
+
 }
 
 export default App;
