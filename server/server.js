@@ -16,6 +16,9 @@ require("./routes/trainerRoutes");
 const announcementRoutes =
 require("./routes/announcementRoutes");
 
+const galleryRoutes =
+require("./routes/galleryRoutes");
+
 const app = express();
 
 app.use(cors());
@@ -41,6 +44,11 @@ app.use(
 app.use(
   "/api/announcements",
   announcementRoutes
+);
+
+app.use(
+  "/api/gallery",
+  galleryRoutes
 );
 
 
