@@ -121,70 +121,80 @@ function Admin() {
 
       </div>
 
-{/* STATS */}
-<div className="grid md:grid-cols-4 gap-6 mb-10">
 
-  <div className="bg-gray-900 p-6 rounded-2xl">
+      {/* STATS */}
+      <div className="grid md:grid-cols-4 gap-6 mb-10">
 
-    <h2 className="text-gray-400 text-xl">
-      Total Members
-    </h2>
+        <div className="bg-gray-900 p-6 rounded-2xl">
 
-    <h1 className="text-5xl font-bold text-red-500 mt-4">
-      {memberships.length}
-    </h1>
+          <h2 className="text-gray-400 text-xl">
+            Total Members
+          </h2>
 
-  </div>
+          <h1 className="text-5xl font-bold text-red-500 mt-4">
+            {memberships.length}
+          </h1>
 
-  <div className="bg-gray-900 p-6 rounded-2xl">
+        </div>
 
-    <h2 className="text-gray-400 text-xl">
-      Premium Plans
-    </h2>
+        <div className="bg-gray-900 p-6 rounded-2xl">
 
-    <h1 className="text-5xl font-bold text-red-500 mt-4">
+          <h2 className="text-gray-400 text-xl">
+            Premium Plans
+          </h2>
 
-      {
-        memberships.filter(
-          (m) => m.plan === "Premium"
-        ).length
-      }
+          <h1 className="text-5xl font-bold text-red-500 mt-4">
 
-    </h1>
+            {
+              memberships.filter(
+                (m) => m.plan === "Premium"
+              ).length
+            }
 
-  </div>
+          </h1>
 
-  <div className="bg-gray-900 p-6 rounded-2xl">
+        </div>
 
-    <h2 className="text-gray-400 text-xl">
-      Basic Plans
-    </h2>
+        <div className="bg-gray-900 p-6 rounded-2xl">
 
-    <h1 className="text-5xl font-bold text-red-500 mt-4">
+          <h2 className="text-gray-400 text-xl">
+            Basic Plans
+          </h2>
 
-      {
-        memberships.filter(
-          (m) => m.plan === "Basic"
-        ).length
-      }
+          <h1 className="text-5xl font-bold text-red-500 mt-4">
 
-    </h1>
+            {
+              memberships.filter(
+                (m) => m.plan === "Basic"
+              ).length
+            }
 
-  </div>
+          </h1>
 
-  <div className="bg-gray-900 p-6 rounded-2xl">
+        </div>
 
-    <h2 className="text-gray-400 text-xl">
-      Active Members
-    </h2>
+        <div className="bg-gray-900 p-6 rounded-2xl">
 
-    <h1 className="text-5xl font-bold text-red-500 mt-4">
-      {memberships.length}
-    </h1>
+          <h2 className="text-gray-400 text-xl">
+            Active Members
+          </h2>
 
-  </div>
+          <h1 className="text-5xl font-bold text-red-500 mt-4">
 
-</div>
+            {
+              memberships.filter(
+                (m) =>
+                  new Date(m.expiryDate) >
+                  new Date()
+              ).length
+            }
+
+          </h1>
+
+        </div>
+
+      </div>
+
 
       {/* SEARCH */}
       <div className="mb-8">
@@ -236,11 +246,51 @@ function Admin() {
                       {member.plan}
                     </span>
 
-                    <div className="mt-3">
+                    <div className="mt-4 space-y-3">
 
-                      <span className="bg-green-500 px-4 py-2 rounded-lg text-black font-bold">
-                        Active
-                      </span>
+                      <div>
+
+                        <span
+                          className={`px-4 py-2 rounded-lg font-bold ${
+                            new Date(member.expiryDate) >
+                            new Date()
+
+                              ? "bg-green-500 text-black"
+
+                              : "bg-red-500 text-white"
+                          }`}
+                        >
+
+                          {new Date(member.expiryDate) >
+                          new Date()
+
+                            ? "Active"
+
+                            : "Expired"}
+
+                        </span>
+
+                      </div>
+
+                      <p className="text-gray-400">
+                        Join:
+                        {" "}
+                        {
+                          new Date(
+                            member.joinDate
+                          ).toLocaleDateString()
+                        }
+                      </p>
+
+                      <p className="text-gray-400">
+                        Expiry:
+                        {" "}
+                        {
+                          new Date(
+                            member.expiryDate
+                          ).toLocaleDateString()
+                        }
+                      </p>
 
                     </div>
 
