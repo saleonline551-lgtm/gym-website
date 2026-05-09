@@ -20,6 +20,8 @@ import Admin from "./pages/Admin";
 
 import TrainerAdmin from "./pages/TrainerAdmin";
 
+import AnnouncementAdmin from "./pages/AnnouncementAdmin";
+
 import AdminRoute from "./components/AdminRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -71,6 +73,15 @@ function App() {
           element={
             <AdminRoute>
               <TrainerAdmin />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/announcement-admin"
+          element={
+            <AdminRoute>
+              <AnnouncementAdmin />
             </AdminRoute>
           }
         />
