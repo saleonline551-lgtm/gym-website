@@ -140,7 +140,7 @@ function Dashboard() {
               <span className="text-red-500">
                 Status:
               </span>{" "}
-              {myMembership.status}
+              Active
             </p>
 
             <p className="text-2xl">
