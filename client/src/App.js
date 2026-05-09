@@ -9,11 +9,16 @@ import {
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+
 import Dashboard from "./pages/Dashboard";
+
 import Membership from "./pages/Membership";
+
 import Trainer from "./pages/Trainer";
 
 import Admin from "./pages/Admin";
+
+import TrainerAdmin from "./pages/TrainerAdmin";
 
 import AdminRoute from "./components/AdminRoute";
 
@@ -57,6 +62,15 @@ function App() {
           element={
             <AdminRoute>
               <Admin />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/trainer-admin"
+          element={
+            <AdminRoute>
+              <TrainerAdmin />
             </AdminRoute>
           }
         />
