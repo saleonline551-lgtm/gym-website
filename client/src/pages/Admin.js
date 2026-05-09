@@ -121,6 +121,70 @@ function Admin() {
 
       </div>
 
+{/* STATS */}
+<div className="grid md:grid-cols-4 gap-6 mb-10">
+
+  <div className="bg-gray-900 p-6 rounded-2xl">
+
+    <h2 className="text-gray-400 text-xl">
+      Total Members
+    </h2>
+
+    <h1 className="text-5xl font-bold text-red-500 mt-4">
+      {memberships.length}
+    </h1>
+
+  </div>
+
+  <div className="bg-gray-900 p-6 rounded-2xl">
+
+    <h2 className="text-gray-400 text-xl">
+      Premium Plans
+    </h2>
+
+    <h1 className="text-5xl font-bold text-red-500 mt-4">
+
+      {
+        memberships.filter(
+          (m) => m.plan === "Premium"
+        ).length
+      }
+
+    </h1>
+
+  </div>
+
+  <div className="bg-gray-900 p-6 rounded-2xl">
+
+    <h2 className="text-gray-400 text-xl">
+      Basic Plans
+    </h2>
+
+    <h1 className="text-5xl font-bold text-red-500 mt-4">
+
+      {
+        memberships.filter(
+          (m) => m.plan === "Basic"
+        ).length
+      }
+
+    </h1>
+
+  </div>
+
+  <div className="bg-gray-900 p-6 rounded-2xl">
+
+    <h2 className="text-gray-400 text-xl">
+      Active Members
+    </h2>
+
+    <h1 className="text-5xl font-bold text-red-500 mt-4">
+      {memberships.length}
+    </h1>
+
+  </div>
+
+</div>
 
       {/* SEARCH */}
       <div className="mb-8">
