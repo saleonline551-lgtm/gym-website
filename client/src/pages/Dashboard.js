@@ -14,12 +14,6 @@ function Dashboard() {
     localStorage.getItem("user")
   );
 
-  useEffect(() => {
-
-    fetchMemberships();
-
-  }, []);
-
   const fetchMemberships = async () => {
 
     try {
@@ -44,6 +38,14 @@ function Dashboard() {
     }
 
   };
+
+  useEffect(() => {
+
+    fetchMemberships();
+
+    // eslint-disable-next-line
+
+  }, []);
 
   const logout = () => {
 
