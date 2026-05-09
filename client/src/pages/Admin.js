@@ -13,20 +13,6 @@ function Admin() {
     localStorage.getItem("user")
   );
 
-  useEffect(() => {
-
-    if (user?.role !== "admin") {
-
-      navigate("/dashboard");
-
-    }
-
-    fetchMemberships();
-
-    // eslint-disable-next-line
-
-  }, []);
-
   const fetchMemberships = async () => {
 
     try {
@@ -44,6 +30,20 @@ function Admin() {
     }
 
   };
+
+  useEffect(() => {
+
+    if (user?.role !== "admin") {
+
+      navigate("/dashboard");
+
+    }
+
+    fetchMemberships();
+
+    // eslint-disable-next-line
+
+  }, []);
 
   const logout = () => {
 
