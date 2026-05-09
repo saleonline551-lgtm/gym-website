@@ -4,6 +4,7 @@ import axios from "axios";
 function Admin() {
 
   const [memberships, setMemberships] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
 
@@ -48,21 +49,51 @@ function Admin() {
 
   };
 
+
+  const filteredMembers = memberships.filter((item) =>
+    item.name.toLowerCase().includes(
+      search.toLowerCase()
+    )
+  );
+
+
   return (
 
     <div className="min-h-screen bg-black text-white p-10">
 
-      <h1 className="text-5xl font-bold text-red-500 mb-10">
-        Admin Panel
-      </h1>
+      <div className="flex justify-between items-center mb-10">
+
+        <div>
+
+          <h1 className="text-5xl font-bold text-red-500">
+            Admin Panel
+          </h1>
+
+          <p className="text-gray-400 mt-2">
+            Manage Gym Members
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <input
+        type="text"
+        placeholder="Search Member..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="w-full p-4 mb-8 rounded-xl bg-gray-900 text-white outline-none border border-gray-700"
+      />
+
 
       <div className="grid gap-6">
 
-        {memberships.map((item) => (
+        {filteredMembers.map((item) => (
 
           <div
             key={item._id}
-            className="bg-gray-900 p-6 rounded-xl flex justify-between items-center"
+            className="bg-gray-900 p-6 rounded-xl flex justify-between items-center hover:scale-[1.01] transition"
           >
 
             <div>
@@ -75,7 +106,7 @@ function Admin() {
                 {item.email}
               </p>
 
-              <p className="mt-2 text-red-500">
+              <p className="mt-2 text-red-500 font-semibold">
                 {item.plan}
               </p>
 
@@ -83,7 +114,7 @@ function Admin() {
 
             <button
               onClick={() => deleteMembership(item._id)}
-              className="bg-red-500 px-6 py-3 rounded-lg hover:bg-red-600"
+              className="bg-red-500 px-6 py-3 rounded-lg hover:bg-red-600 transition"
             >
               Delete
             </button>
