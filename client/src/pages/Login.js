@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
 
@@ -12,10 +12,12 @@ function Login() {
   });
 
   const handleChange = (e) => {
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
   };
 
   const handleSubmit = async (e) => {
@@ -44,40 +46,62 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex justify-center items-center text-white">
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-900 p-10 rounded-2xl w-96"
-      >
+    <div className="min-h-screen flex justify-center items-center bg-black px-5">
 
-        <h1 className="text-4xl font-bold mb-8 text-center">
-          Login
+      <div className="bg-gray-900 w-full max-w-md p-10 rounded-3xl shadow-2xl border border-gray-800">
+
+        <h1 className="text-5xl font-bold text-center text-red-500 mb-3">
+          POWER GYM
         </h1>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          className="w-full p-4 mb-5 bg-black rounded-lg outline-none"
-        />
+        <p className="text-center text-gray-400 mb-10">
+          Login To Continue
+        </p>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          className="w-full p-4 mb-5 bg-black rounded-lg outline-none"
-        />
+        <form onSubmit={handleSubmit}>
 
-        <button className="bg-red-500 w-full py-4 rounded-lg hover:bg-red-600">
-          Login
-        </button>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter Email"
+            onChange={handleChange}
+            className="w-full p-4 mb-5 rounded-xl bg-black text-white outline-none border border-gray-700"
+          />
 
-      </form>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            onChange={handleChange}
+            className="w-full p-4 mb-6 rounded-xl bg-black text-white outline-none border border-gray-700"
+          />
+
+          <button
+            className="w-full bg-red-500 py-4 rounded-xl text-xl hover:bg-red-600 transition"
+          >
+            Login
+          </button>
+
+        </form>
+
+        <p className="text-center text-gray-400 mt-8">
+
+          Don’t have an account?
+
+          <Link
+            to="/register"
+            className="text-red-500 ml-2"
+          >
+            Register
+          </Link>
+
+        </p>
+
+      </div>
 
     </div>
+
   );
 }
 
