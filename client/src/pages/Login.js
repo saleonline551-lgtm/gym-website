@@ -43,7 +43,16 @@ function Login() {
 
       alert(res.data.message);
 
-      navigate("/dashboard");
+      // ADMIN CHECK
+      if (res.data.user.role === "admin") {
+
+        navigate("/admin");
+
+      } else {
+
+        navigate("/dashboard");
+
+      }
 
     } catch (error) {
 

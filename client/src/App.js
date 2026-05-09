@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Membership from "./pages/Membership";
 import Admin from "./pages/Admin";
+import AdminRoute from "./components/AdminRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -43,9 +44,13 @@ function App() {
         />
 
         <Route
-          path="/admin"
-          element={<Admin />}
-        />
+  path="/admin"
+  element={
+    <AdminRoute>
+      <Admin />
+    </AdminRoute>
+  }
+/>
 
         <Route
           path="/dashboard"
