@@ -5,55 +5,107 @@ import React, {
 } from "react";
 
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
+import {
+  useNavigate
+} from "react-router-dom";
 
 function Dashboard() {
 
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
-  const [memberships, setMemberships] = useState([]);
-  const [myMembership, setMyMembership] =
+  const [memberships,
+    setMemberships] =
+    useState([]);
+
+  const [myMembership,
+    setMyMembership] =
     useState(null);
+
+  const [announcements,
+    setAnnouncements] =
+    useState([]);
 
   const user = JSON.parse(
     localStorage.getItem("user")
   );
 
-  const fetchMemberships = useCallback(async () => {
+  const fetchMemberships =
+    useCallback(async () => {
 
-    try {
+      try {
 
-      const res = await axios.get(
-        "https://gym-backend-8dou.onrender.com/api/membership"
-      );
+        const res =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/membership"
+          );
 
-      setMemberships(res.data);
+        setMemberships(
+          res.data
+        );
 
-      const userMembership = res.data.find(
-        (item) =>
-          item.email === user?.email
-      );
+        const userMembership =
+          res.data.find(
+            (item) =>
+              item.email ===
+              user?.email
+          );
 
-      setMyMembership(userMembership);
+        setMyMembership(
+          userMembership
+        );
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error);
+        console.log(error);
 
-    }
+      }
 
-  }, [user]);
+    }, [user]);
+
+  const fetchAnnouncements =
+    useCallback(async () => {
+
+      try {
+
+        const res =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/announcements"
+          );
+
+        setAnnouncements(
+          res.data
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }, []);
 
   useEffect(() => {
 
     fetchMemberships();
 
-  }, [fetchMemberships]);
+    fetchAnnouncements();
+
+  }, [
+    fetchMemberships,
+    fetchAnnouncements
+  ]);
 
   const logout = () => {
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem(
+      "token"
+    );
+
+    localStorage.removeItem(
+      "user"
+    );
 
     navigate("/login");
 
@@ -123,7 +175,7 @@ function Dashboard() {
       </div>
 
 
-      {/* MEMBERSHIP CARD */}
+      {/* MEMBERSHIP */}
       {myMembership && (
 
         <div className="bg-gray-900 p-8 rounded-2xl mb-10">
@@ -145,16 +197,43 @@ function Dashboard() {
               <span className="text-red-500">
                 Status:
               </span>{" "}
-              Active
+
+              {
+                new Date(
+                  myMembership.expiryDate
+                ) > new Date()
+
+                  ? "Active"
+
+                  : "Expired"
+              }
+
             </p>
 
             <p className="text-2xl">
               <span className="text-red-500">
-                Joined:
+                Join Date:
               </span>{" "}
-              {new Date(
-                myMembership.createdAt
-              ).toLocaleDateString()}
+
+              {
+                new Date(
+                  myMembership.joinDate
+                ).toLocaleDateString()
+              }
+
+            </p>
+
+            <p className="text-2xl">
+              <span className="text-red-500">
+                Expiry Date:
+              </span>{" "}
+
+              {
+                new Date(
+                  myMembership.expiryDate
+                ).toLocaleDateString()
+              }
+
             </p>
 
           </div>
@@ -205,9 +284,55 @@ function Dashboard() {
 
       </div>
 
+
+      {/* ANNOUNCEMENTS */}
+      <div className="bg-gray-900 p-8 rounded-2xl">
+
+        <h1 className="text-4xl font-bold mb-8 text-red-500">
+          Gym Announcements
+        </h1>
+
+        <div className="space-y-6">
+
+          {announcements.length > 0 ? (
+
+            announcements.map(
+              (announcement) => (
+
+                <div
+                  key={announcement._id}
+                  className="bg-black p-6 rounded-2xl border border-gray-800"
+                >
+
+                  <h1 className="text-3xl font-bold">
+                    {announcement.title}
+                  </h1>
+
+                  <p className="text-gray-400 mt-4">
+                    {announcement.message}
+                  </p>
+
+                </div>
+
+              )
+            )
+
+          ) : (
+
+            <p className="text-gray-400">
+              No Announcements
+            </p>
+
+          )}
+
+        </div>
+
+      </div>
+
     </div>
 
   );
+
 }
 
 export default Dashboard;
