@@ -57,6 +57,32 @@ function Admin() {
 
   };
 
+  // DELETE MEMBER
+  const deleteMember = async (id) => {
+
+    const confirmDelete =
+      window.confirm(
+        "Delete this member?"
+      );
+
+    if (!confirmDelete) return;
+
+    try {
+
+      await axios.delete(
+        `https://gym-backend-8dou.onrender.com/api/membership/${id}`
+      );
+
+      fetchMemberships();
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
   // SEARCH FILTER
   const filteredMembers =
     memberships.filter((member) =>
@@ -96,7 +122,7 @@ function Admin() {
       </div>
 
 
-      {/* SEARCH BAR */}
+      {/* SEARCH */}
       <div className="mb-8">
 
         <input
@@ -138,15 +164,32 @@ function Admin() {
                   {member.email}
                 </p>
 
-                <div className="flex justify-between mt-5">
+                <div className="flex justify-between items-center mt-5">
 
-                  <span className="text-red-500 text-2xl">
-                    {member.plan}
-                  </span>
+                  <div>
 
-                  <span className="bg-green-500 px-4 py-2 rounded-lg text-black font-bold">
-                    Active
-                  </span>
+                    <span className="text-red-500 text-2xl">
+                      {member.plan}
+                    </span>
+
+                    <div className="mt-3">
+
+                      <span className="bg-green-500 px-4 py-2 rounded-lg text-black font-bold">
+                        Active
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <button
+                    onClick={() =>
+                      deleteMember(member._id)
+                    }
+                    className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-700 transition"
+                  >
+                    Delete
+                  </button>
 
                 </div>
 
