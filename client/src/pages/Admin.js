@@ -29,7 +29,27 @@ function Admin() {
 
   };
 
+
+  const deleteMembership = async (id) => {
+
+    try {
+
+      await axios.delete(
+        `https://gym-backend-8dou.onrender.com/api/membership/${id}`
+      );
+
+      fetchMemberships();
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
   return (
+
     <div className="min-h-screen bg-black text-white p-10">
 
       <h1 className="text-5xl font-bold text-red-500 mb-10">
@@ -42,20 +62,31 @@ function Admin() {
 
           <div
             key={item._id}
-            className="bg-gray-900 p-6 rounded-xl"
+            className="bg-gray-900 p-6 rounded-xl flex justify-between items-center"
           >
 
-            <h2 className="text-2xl font-bold">
-              {item.name}
-            </h2>
+            <div>
 
-            <p className="mt-2 text-gray-300">
-              {item.email}
-            </p>
+              <h2 className="text-2xl font-bold">
+                {item.name}
+              </h2>
 
-            <p className="mt-2 text-red-500">
-              {item.plan}
-            </p>
+              <p className="mt-2 text-gray-300">
+                {item.email}
+              </p>
+
+              <p className="mt-2 text-red-500">
+                {item.plan}
+              </p>
+
+            </div>
+
+            <button
+              onClick={() => deleteMembership(item._id)}
+              className="bg-red-500 px-6 py-3 rounded-lg hover:bg-red-600"
+            >
+              Delete
+            </button>
 
           </div>
 
@@ -64,6 +95,7 @@ function Admin() {
       </div>
 
     </div>
+
   );
 }
 

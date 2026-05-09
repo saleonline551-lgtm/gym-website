@@ -49,4 +49,29 @@ router.get("/", async (req, res) => {
 
 });
 
+
+// DELETE MEMBERSHIP
+router.delete("/:id", async (req, res) => {
+
+  try {
+
+    await Membership.findByIdAndDelete(
+      req.params.id
+    );
+
+    res.status(200).json({
+      message: "Membership Deleted",
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: error.message,
+    });
+
+  }
+
+});
+
+
 module.exports = router;
