@@ -9,6 +9,9 @@ function Admin() {
   const [memberships, setMemberships] =
     useState([]);
 
+  const [search, setSearch] =
+    useState("");
+
   const user = JSON.parse(
     localStorage.getItem("user")
   );
@@ -54,6 +57,16 @@ function Admin() {
 
   };
 
+  // SEARCH FILTER
+  const filteredMembers =
+    memberships.filter((member) =>
+
+      member.name
+        .toLowerCase()
+        .includes(search.toLowerCase())
+
+    );
+
   return (
 
     <div className="min-h-screen bg-black text-white p-10">
@@ -83,6 +96,22 @@ function Admin() {
       </div>
 
 
+      {/* SEARCH BAR */}
+      <div className="mb-8">
+
+        <input
+          type="text"
+          placeholder="Search Members..."
+          value={search}
+          onChange={(e) =>
+            setSearch(e.target.value)
+          }
+          className="w-full p-5 rounded-2xl bg-gray-900 border border-gray-700 outline-none text-white text-xl"
+        />
+
+      </div>
+
+
       {/* MEMBERS */}
       <div className="bg-gray-900 p-8 rounded-2xl">
 
@@ -92,13 +121,13 @@ function Admin() {
 
         <div className="space-y-6">
 
-          {memberships.length > 0 ? (
+          {filteredMembers.length > 0 ? (
 
-            memberships.map((member) => (
+            filteredMembers.map((member) => (
 
               <div
                 key={member._id}
-                className="bg-black p-6 rounded-2xl border border-gray-800"
+                className="bg-black p-6 rounded-2xl border border-gray-800 hover:border-red-500 transition"
               >
 
                 <h1 className="text-3xl font-bold text-white">
