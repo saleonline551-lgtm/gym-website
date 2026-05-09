@@ -1,4 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback
+} from "react";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +19,7 @@ function Dashboard() {
     localStorage.getItem("user")
   );
 
-  const fetchMemberships = async () => {
+  const fetchMemberships = useCallback(async () => {
 
     try {
 
@@ -37,15 +42,13 @@ function Dashboard() {
 
     }
 
-  };
+  }, [user]);
 
   useEffect(() => {
 
     fetchMemberships();
 
-    // eslint-disable-next-line
-
-  }, []);
+  }, [fetchMemberships]);
 
   const logout = () => {
 
