@@ -13,6 +13,9 @@ require("./routes/membershipRoutes");
 const trainerRoutes =
 require("./routes/trainerRoutes");
 
+const announcementRoutes =
+require("./routes/announcementRoutes");
+
 const app = express();
 
 app.use(cors());
@@ -33,6 +36,11 @@ app.use(
 app.use(
   "/api/trainers",
   trainerRoutes
+);
+
+app.use(
+  "/api/announcements",
+  announcementRoutes
 );
 
 
