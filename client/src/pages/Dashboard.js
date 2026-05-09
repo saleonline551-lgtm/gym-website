@@ -8,6 +8,10 @@ function Dashboard() {
 
   const [memberships, setMemberships] = useState([]);
 
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
+
   useEffect(() => {
 
     fetchMemberships();
@@ -35,6 +39,7 @@ function Dashboard() {
   const logout = () => {
 
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
     navigate("/login");
 
@@ -54,7 +59,7 @@ function Dashboard() {
           </h1>
 
           <p className="text-gray-400 mt-2">
-            Welcome Back Admin 🔥
+            Welcome Back 🔥
           </p>
 
         </div>
@@ -65,6 +70,41 @@ function Dashboard() {
         >
           Logout
         </button>
+
+      </div>
+
+
+      {/* PROFILE CARD */}
+      <div className="bg-gray-900 p-8 rounded-2xl mb-10">
+
+        <h1 className="text-4xl font-bold mb-6">
+          User Profile
+        </h1>
+
+        <div className="space-y-4">
+
+          <p className="text-2xl">
+            <span className="text-red-500">
+              Name:
+            </span>{" "}
+            {user?.name}
+          </p>
+
+          <p className="text-2xl">
+            <span className="text-red-500">
+              Email:
+            </span>{" "}
+            {user?.email}
+          </p>
+
+          <p className="text-2xl">
+            <span className="text-red-500">
+              Status:
+            </span>{" "}
+            Active Member
+          </p>
+
+        </div>
 
       </div>
 
