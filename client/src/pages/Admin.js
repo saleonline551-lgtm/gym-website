@@ -43,9 +43,7 @@ function Admin() {
 
     fetchMemberships();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  }, []);
+  }, [navigate, user?.role]);
 
   const logout = () => {
 
