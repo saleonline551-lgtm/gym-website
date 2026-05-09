@@ -7,6 +7,8 @@ function Dashboard() {
   const navigate = useNavigate();
 
   const [memberships, setMemberships] = useState([]);
+  const [myMembership, setMyMembership] =
+    useState(null);
 
   const user = JSON.parse(
     localStorage.getItem("user")
@@ -27,6 +29,13 @@ function Dashboard() {
       );
 
       setMemberships(res.data);
+
+      const userMembership = res.data.find(
+        (item) =>
+          item.email === user?.email
+      );
+
+      setMyMembership(userMembership);
 
     } catch (error) {
 
@@ -109,6 +118,47 @@ function Dashboard() {
       </div>
 
 
+      {/* MEMBERSHIP CARD */}
+      {myMembership && (
+
+        <div className="bg-gray-900 p-8 rounded-2xl mb-10">
+
+          <h1 className="text-4xl font-bold mb-6">
+            Membership Details
+          </h1>
+
+          <div className="space-y-4">
+
+            <p className="text-2xl">
+              <span className="text-red-500">
+                Plan:
+              </span>{" "}
+              {myMembership.plan}
+            </p>
+
+            <p className="text-2xl">
+              <span className="text-red-500">
+                Status:
+              </span>{" "}
+              {myMembership.status}
+            </p>
+
+            <p className="text-2xl">
+              <span className="text-red-500">
+                Joined:
+              </span>{" "}
+              {new Date(
+                myMembership.createdAt
+              ).toLocaleDateString()}
+            </p>
+
+          </div>
+
+        </div>
+
+      )}
+
+
       {/* STATS */}
       <div className="grid md:grid-cols-3 gap-8 mb-12">
 
@@ -145,47 +195,6 @@ function Dashboard() {
           <h1 className="text-5xl font-bold mt-4 text-red-500">
             3
           </h1>
-
-        </div>
-
-      </div>
-
-
-      {/* RECENT MEMBERS */}
-      <div className="bg-gray-900 p-8 rounded-2xl">
-
-        <h1 className="text-4xl font-bold mb-8">
-          Recent Members
-        </h1>
-
-        <div className="space-y-5">
-
-          {memberships.slice(0, 5).map((item) => (
-
-            <div
-              key={item._id}
-              className="bg-black p-5 rounded-xl flex justify-between items-center"
-            >
-
-              <div>
-
-                <h2 className="text-2xl font-bold">
-                  {item.name}
-                </h2>
-
-                <p className="text-gray-400">
-                  {item.email}
-                </p>
-
-              </div>
-
-              <span className="text-red-500 text-xl">
-                {item.plan}
-              </span>
-
-            </div>
-
-          ))}
 
         </div>
 
