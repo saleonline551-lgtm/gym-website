@@ -24,9 +24,31 @@ function Membership() {
 
     try {
 
+      // JOIN DATE
+      const joinDate = new Date();
+
+      // EXPIRY DATE
+      const expiryDate = new Date();
+
+      expiryDate.setMonth(
+        expiryDate.getMonth() + 1
+      );
+
+      const membershipData = {
+
+        ...formData,
+
+        status: "Active",
+
+        joinDate,
+
+        expiryDate,
+
+      };
+
       const res = await axios.post(
         "https://gym-backend-8dou.onrender.com/api/membership",
-        formData
+        membershipData
       );
 
       alert(res.data.message);
@@ -101,7 +123,7 @@ function Membership() {
           </select>
 
           <button
-            className="w-full bg-red-500 py-4 rounded-xl hover:bg-red-600"
+            className="w-full bg-red-500 py-4 rounded-xl hover:bg-red-600 transition"
           >
             Join Membership
           </button>
