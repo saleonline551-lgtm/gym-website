@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
 
   const navigate = useNavigate();
+
+  const [memberships, setMemberships] = useState([]);
+
+  useEffect(() => {
+
+    fetchMemberships();
+
+  }, []);
+
+  const fetchMemberships = async () => {
+
+    try {
+
+      const res = await axios.get(
+        "https://gym-backend-8dou.onrender.com/api/membership"
+      );
+
+      setMemberships(res.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
 
   const logout = () => {
 
@@ -17,17 +44,19 @@ function Dashboard() {
 
     <div className="min-h-screen bg-black text-white p-10">
 
-      {/* TOP BAR */}
+      {/* TOP */}
       <div className="flex justify-between items-center mb-10">
 
         <div>
+
           <h1 className="text-5xl font-bold text-red-500">
             POWER GYM
           </h1>
 
           <p className="text-gray-400 mt-2">
-            Welcome Back Athlete 🔥
+            Welcome Back Admin 🔥
           </p>
+
         </div>
 
         <button
@@ -46,11 +75,11 @@ function Dashboard() {
         <div className="bg-gray-900 p-8 rounded-2xl">
 
           <h2 className="text-2xl text-gray-400">
-            Total Members
+            Total Memberships
           </h2>
 
           <h1 className="text-5xl font-bold mt-4 text-red-500">
-            250+
+            {memberships.length}
           </h1>
 
         </div>
@@ -82,50 +111,41 @@ function Dashboard() {
       </div>
 
 
-      {/* RECENT BOOKINGS */}
+      {/* RECENT MEMBERS */}
       <div className="bg-gray-900 p-8 rounded-2xl">
 
         <h1 className="text-4xl font-bold mb-8">
-          Recent Activity
+          Recent Members
         </h1>
 
         <div className="space-y-5">
 
-          <div className="bg-black p-5 rounded-xl flex justify-between items-center">
+          {memberships.slice(0, 5).map((item) => (
 
-            <div>
-              <h2 className="text-2xl font-bold">
-                Premium Membership
-              </h2>
+            <div
+              key={item._id}
+              className="bg-black p-5 rounded-xl flex justify-between items-center"
+            >
 
-              <p className="text-gray-400">
-                Joined Today
-              </p>
+              <div>
+
+                <h2 className="text-2xl font-bold">
+                  {item.name}
+                </h2>
+
+                <p className="text-gray-400">
+                  {item.email}
+                </p>
+
+              </div>
+
+              <span className="text-red-500 text-xl">
+                {item.plan}
+              </span>
+
             </div>
 
-            <span className="text-red-500 text-xl">
-              Active
-            </span>
-
-          </div>
-
-          <div className="bg-black p-5 rounded-xl flex justify-between items-center">
-
-            <div>
-              <h2 className="text-2xl font-bold">
-                Personal Trainer Session
-              </h2>
-
-              <p className="text-gray-400">
-                Tomorrow 7 AM
-              </p>
-            </div>
-
-            <span className="text-green-500 text-xl">
-              Scheduled
-            </span>
-
-          </div>
+          ))}
 
         </div>
 
