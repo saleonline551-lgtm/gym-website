@@ -27,6 +27,10 @@ function Dashboard() {
     setAnnouncements] =
     useState([]);
 
+  const [gallery,
+    setGallery] =
+    useState([]);
+
   const user = JSON.parse(
     localStorage.getItem("user")
   );
@@ -86,15 +90,40 @@ function Dashboard() {
 
     }, []);
 
+  const fetchGallery =
+    useCallback(async () => {
+
+      try {
+
+        const res =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/gallery"
+          );
+
+        setGallery(
+          res.data
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }, []);
+
   useEffect(() => {
 
     fetchMemberships();
 
     fetchAnnouncements();
 
+    fetchGallery();
+
   }, [
     fetchMemberships,
-    fetchAnnouncements
+    fetchAnnouncements,
+    fetchGallery
   ]);
 
   const logout = () => {
@@ -286,7 +315,7 @@ function Dashboard() {
 
 
       {/* ANNOUNCEMENTS */}
-      <div className="bg-gray-900 p-8 rounded-2xl">
+      <div className="bg-gray-900 p-8 rounded-2xl mb-12">
 
         <h1 className="text-4xl font-bold mb-8 text-red-500">
           Gym Announcements
@@ -321,6 +350,47 @@ function Dashboard() {
 
             <p className="text-gray-400">
               No Announcements
+            </p>
+
+          )}
+
+        </div>
+
+      </div>
+
+
+      {/* GALLERY */}
+      <div className="bg-gray-900 p-8 rounded-2xl">
+
+        <h1 className="text-4xl font-bold mb-8 text-red-500">
+          Gym Gallery
+        </h1>
+
+        <div className="grid md:grid-cols-3 gap-6">
+
+          {gallery.length > 0 ? (
+
+            gallery.map((item) => (
+
+              <div
+                key={item._id}
+                className="bg-black p-4 rounded-2xl border border-gray-800"
+              >
+
+                <img
+                  src={item.image}
+                  alt=""
+                  className="w-full h-64 object-cover rounded-xl"
+                />
+
+              </div>
+
+            ))
+
+          ) : (
+
+            <p className="text-gray-400">
+              No Images Found
             </p>
 
           )}
