@@ -16,6 +16,8 @@ import Membership from "./pages/Membership";
 
 import Trainer from "./pages/Trainer";
 
+import BMI from "./pages/BMI";
+
 import Admin from "./pages/Admin";
 
 import TrainerAdmin from "./pages/TrainerAdmin";
@@ -61,6 +63,11 @@ function App() {
         <Route
           path="/trainer"
           element={<Trainer />}
+        />
+
+        <Route
+          path="/bmi"
+          element={<BMI />}
         />
 
         <Route
