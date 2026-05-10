@@ -32,6 +32,8 @@ import DietAdmin from "./pages/DietAdmin";
 
 import AttendanceAdmin from "./pages/AttendanceAdmin";
 
+import ContactAdmin from "./pages/ContactAdmin";
+
 import AdminRoute from "./components/AdminRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -129,6 +131,15 @@ function App() {
           element={
             <AdminRoute>
               <AttendanceAdmin />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/contact-admin"
+          element={
+            <AdminRoute>
+              <ContactAdmin />
             </AdminRoute>
           }
         />
