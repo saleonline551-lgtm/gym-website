@@ -144,6 +144,30 @@ function Admin() {
 
     };
 
+  // RENEW MEMBERSHIP
+  const renewMembership =
+    async (id) => {
+
+      try {
+
+        await axios.put(
+          `https://gym-backend-8dou.onrender.com/api/membership/renew/${id}`
+        );
+
+        alert(
+          "Membership Renewed"
+        );
+
+        fetchData();
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
   const filteredMembers =
     memberships.filter(
       (member) =>
@@ -373,16 +397,33 @@ function Admin() {
 
                     </div>
 
-                    <button
-                      onClick={() =>
-                        deleteMember(
-                          member._id
-                        )
-                      }
-                      className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-700 transition"
-                    >
-                      Delete
-                    </button>
+
+                    {/* ACTION BUTTONS */}
+                    <div className="flex gap-4">
+
+                      <button
+                        onClick={() =>
+                          renewMembership(
+                            member._id
+                          )
+                        }
+                        className="bg-green-500 px-6 py-3 rounded-xl hover:bg-green-700 transition text-black font-bold"
+                      >
+                        Renew
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          deleteMember(
+                            member._id
+                          )
+                        }
+                        className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-700 transition"
+                      >
+                        Delete
+                      </button>
+
+                    </div>
 
                   </div>
 
