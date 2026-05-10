@@ -31,6 +31,10 @@ function Dashboard() {
     setGallery] =
     useState([]);
 
+  const [attendance,
+    setAttendance] =
+    useState([]);
+
   const user = JSON.parse(
     localStorage.getItem("user")
   );
@@ -112,6 +116,35 @@ function Dashboard() {
 
     }, []);
 
+  const fetchAttendance =
+    useCallback(async () => {
+
+      try {
+
+        const res =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/attendance"
+          );
+
+        const userAttendance =
+          res.data.filter(
+            (item) =>
+              item.email ===
+              user?.email
+          );
+
+        setAttendance(
+          userAttendance
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }, [user]);
+
   useEffect(() => {
 
     fetchMemberships();
@@ -120,10 +153,13 @@ function Dashboard() {
 
     fetchGallery();
 
+    fetchAttendance();
+
   }, [
     fetchMemberships,
     fetchAnnouncements,
-    fetchGallery
+    fetchGallery,
+    fetchAttendance
   ]);
 
   const logout = () => {
@@ -273,7 +309,7 @@ function Dashboard() {
 
 
       {/* STATS */}
-      <div className="grid md:grid-cols-3 gap-8 mb-12">
+      <div className="grid md:grid-cols-4 gap-8 mb-12">
 
         <div className="bg-gray-900 p-8 rounded-2xl">
 
@@ -308,6 +344,75 @@ function Dashboard() {
           <h1 className="text-5xl font-bold mt-4 text-red-500">
             3
           </h1>
+
+        </div>
+
+        <div className="bg-gray-900 p-8 rounded-2xl">
+
+          <h2 className="text-2xl text-gray-400">
+            Attendance
+          </h2>
+
+          <h1 className="text-5xl font-bold mt-4 text-red-500">
+            {attendance.length}
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      {/* ATTENDANCE */}
+      <div className="bg-gray-900 p-8 rounded-2xl mb-12">
+
+        <h1 className="text-4xl font-bold mb-8 text-red-500">
+          Attendance History
+        </h1>
+
+        <div className="space-y-6">
+
+          {attendance.length > 0 ? (
+
+            attendance.map((item) => (
+
+              <div
+                key={item._id}
+                className="bg-black p-6 rounded-2xl border border-gray-800 flex justify-between items-center"
+              >
+
+                <div>
+
+                  <h1 className="text-2xl font-bold">
+                    Present
+                  </h1>
+
+                  <p className="text-gray-400 mt-2">
+
+                    {
+                      new Date(
+                        item.date
+                      ).toLocaleDateString()
+                    }
+
+                  </p>
+
+                </div>
+
+                <span className="bg-green-500 px-5 py-3 rounded-xl text-black font-bold">
+                  Present
+                </span>
+
+              </div>
+
+            ))
+
+          ) : (
+
+            <p className="text-gray-400">
+              No Attendance Found
+            </p>
+
+          )}
 
         </div>
 
