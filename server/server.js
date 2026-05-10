@@ -19,6 +19,9 @@ require("./routes/announcementRoutes");
 const galleryRoutes =
 require("./routes/galleryRoutes");
 
+const dietRoutes =
+require("./routes/dietRoutes");
+
 const app = express();
 
 app.use(cors());
@@ -49,6 +52,11 @@ app.use(
 app.use(
   "/api/gallery",
   galleryRoutes
+);
+
+app.use(
+  "/api/diets",
+  dietRoutes
 );
 
 
