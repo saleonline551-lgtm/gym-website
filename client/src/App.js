@@ -24,6 +24,8 @@ import AnnouncementAdmin from "./pages/AnnouncementAdmin";
 
 import GalleryAdmin from "./pages/GalleryAdmin";
 
+import DietAdmin from "./pages/DietAdmin";
+
 import AdminRoute from "./components/AdminRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -93,6 +95,15 @@ function App() {
           element={
             <AdminRoute>
               <GalleryAdmin />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/diet-admin"
+          element={
+            <AdminRoute>
+              <DietAdmin />
             </AdminRoute>
           }
         />
