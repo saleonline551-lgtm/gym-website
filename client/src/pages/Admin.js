@@ -1,42 +1,97 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState
+} from "react";
+
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
+import {
+  useNavigate
+} from "react-router-dom";
 
 function Admin() {
 
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
-  const [memberships, setMemberships] =
+  const [memberships,
+    setMemberships] =
     useState([]);
 
-  const [search, setSearch] =
+  const [attendance,
+    setAttendance] =
+    useState([]);
+
+  const [trainers,
+    setTrainers] =
+    useState([]);
+
+  const [announcements,
+    setAnnouncements] =
+    useState([]);
+
+  const [search,
+    setSearch] =
     useState("");
 
   const user = JSON.parse(
     localStorage.getItem("user")
   );
 
-  const fetchMemberships = async () => {
+  const fetchData =
+    async () => {
 
-    try {
+      try {
 
-      const res = await axios.get(
-        "https://gym-backend-8dou.onrender.com/api/membership"
-      );
+        const membershipRes =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/membership"
+          );
 
-      setMemberships(res.data);
+        const attendanceRes =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/attendance"
+          );
 
-    } catch (error) {
+        const trainerRes =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/trainers"
+          );
 
-      console.log(error);
+        const announcementRes =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/announcements"
+          );
 
-    }
+        setMemberships(
+          membershipRes.data
+        );
 
-  };
+        setAttendance(
+          attendanceRes.data
+        );
+
+        setTrainers(
+          trainerRes.data
+        );
+
+        setAnnouncements(
+          announcementRes.data
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
 
   useEffect(() => {
 
-    if (user?.role !== "admin") {
+    if (
+      user?.role !== "admin"
+    ) {
 
       navigate("/dashboard");
 
@@ -44,52 +99,60 @@ function Admin() {
 
     }
 
-    fetchMemberships();
+    fetchData();
 
   }, [navigate, user?.role]);
 
   const logout = () => {
 
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem(
+      "token"
+    );
+
+    localStorage.removeItem(
+      "user"
+    );
 
     navigate("/login");
 
   };
 
-  // DELETE MEMBER
-  const deleteMember = async (id) => {
+  const deleteMember =
+    async (id) => {
 
-    const confirmDelete =
-      window.confirm(
-        "Delete this member?"
-      );
+      const confirmDelete =
+        window.confirm(
+          "Delete this member?"
+        );
 
-    if (!confirmDelete) return;
+      if (!confirmDelete)
+        return;
 
-    try {
+      try {
 
-      await axios.delete(
-        `https://gym-backend-8dou.onrender.com/api/membership/${id}`
-      );
+        await axios.delete(
+          `https://gym-backend-8dou.onrender.com/api/membership/${id}`
+        );
 
-      fetchMemberships();
+        fetchData();
 
-    } catch (error) {
+      } catch (error) {
 
-      console.log(error);
+        console.log(error);
 
-    }
+      }
 
-  };
+    };
 
-  // SEARCH FILTER
   const filteredMembers =
-    memberships.filter((member) =>
+    memberships.filter(
+      (member) =>
 
-      member.name
-        .toLowerCase()
-        .includes(search.toLowerCase())
+        member.name
+          .toLowerCase()
+          .includes(
+            search.toLowerCase()
+          )
 
     );
 
@@ -103,11 +166,11 @@ function Admin() {
         <div>
 
           <h1 className="text-5xl font-bold text-red-500">
-            ADMIN PANEL
+            ADMIN ANALYTICS
           </h1>
 
           <p className="text-gray-400 mt-2">
-            Manage Gym Members
+            Gym Management Dashboard
           </p>
 
         </div>
@@ -122,13 +185,13 @@ function Admin() {
       </div>
 
 
-      {/* STATS */}
-      <div className="grid md:grid-cols-4 gap-6 mb-10">
+      {/* ANALYTICS */}
+      <div className="grid md:grid-cols-5 gap-6 mb-10">
 
         <div className="bg-gray-900 p-6 rounded-2xl">
 
           <h2 className="text-gray-400 text-xl">
-            Total Members
+            Members
           </h2>
 
           <h1 className="text-5xl font-bold text-red-500 mt-4">
@@ -140,17 +203,11 @@ function Admin() {
         <div className="bg-gray-900 p-6 rounded-2xl">
 
           <h2 className="text-gray-400 text-xl">
-            Premium Plans
+            Attendance
           </h2>
 
           <h1 className="text-5xl font-bold text-red-500 mt-4">
-
-            {
-              memberships.filter(
-                (m) => m.plan === "Premium"
-              ).length
-            }
-
+            {attendance.length}
           </h1>
 
         </div>
@@ -158,17 +215,23 @@ function Admin() {
         <div className="bg-gray-900 p-6 rounded-2xl">
 
           <h2 className="text-gray-400 text-xl">
-            Basic Plans
+            Trainers
           </h2>
 
           <h1 className="text-5xl font-bold text-red-500 mt-4">
+            {trainers.length}
+          </h1>
 
-            {
-              memberships.filter(
-                (m) => m.plan === "Basic"
-              ).length
-            }
+        </div>
 
+        <div className="bg-gray-900 p-6 rounded-2xl">
+
+          <h2 className="text-gray-400 text-xl">
+            Announcements
+          </h2>
+
+          <h1 className="text-5xl font-bold text-red-500 mt-4">
+            {announcements.length}
           </h1>
 
         </div>
@@ -184,8 +247,9 @@ function Admin() {
             {
               memberships.filter(
                 (m) =>
-                  new Date(m.expiryDate) >
-                  new Date()
+                  new Date(
+                    m.expiryDate
+                  ) > new Date()
               ).length
             }
 
@@ -204,7 +268,9 @@ function Admin() {
           placeholder="Search Members..."
           value={search}
           onChange={(e) =>
-            setSearch(e.target.value)
+            setSearch(
+              e.target.value
+            )
           }
           className="w-full p-5 rounded-2xl bg-gray-900 border border-gray-700 outline-none text-white text-xl"
         />
@@ -223,93 +289,107 @@ function Admin() {
 
           {filteredMembers.length > 0 ? (
 
-            filteredMembers.map((member) => (
+            filteredMembers.map(
+              (member) => (
 
-              <div
-                key={member._id}
-                className="bg-black p-6 rounded-2xl border border-gray-800 hover:border-red-500 transition"
-              >
+                <div
+                  key={member._id}
+                  className="bg-black p-6 rounded-2xl border border-gray-800 hover:border-red-500 transition"
+                >
 
-                <h1 className="text-3xl font-bold text-white">
-                  {member.name}
-                </h1>
+                  <h1 className="text-3xl font-bold text-white">
+                    {member.name}
+                  </h1>
 
-                <p className="text-gray-400 mt-2">
-                  {member.email}
-                </p>
+                  <p className="text-gray-400 mt-2">
+                    {member.email}
+                  </p>
 
-                <div className="flex justify-between items-center mt-5">
+                  <div className="flex justify-between items-center mt-5">
 
-                  <div>
+                    <div>
 
-                    <span className="text-red-500 text-2xl">
-                      {member.plan}
-                    </span>
+                      <span className="text-red-500 text-2xl">
+                        {member.plan}
+                      </span>
 
-                    <div className="mt-4 space-y-3">
+                      <div className="mt-4 space-y-3">
 
-                      <div>
+                        <div>
 
-                        <span
-                          className={`px-4 py-2 rounded-lg font-bold ${
-                            new Date(member.expiryDate) >
-                            new Date()
+                          <span
+                            className={`px-4 py-2 rounded-lg font-bold ${
+                              new Date(
+                                member.expiryDate
+                              ) > new Date()
 
-                              ? "bg-green-500 text-black"
+                                ? "bg-green-500 text-black"
 
-                              : "bg-red-500 text-white"
-                          }`}
-                        >
+                                : "bg-red-500 text-white"
+                            }`}
+                          >
 
-                          {new Date(member.expiryDate) >
-                          new Date()
+                            {
+                              new Date(
+                                member.expiryDate
+                              ) > new Date()
 
-                            ? "Active"
+                                ? "Active"
 
-                            : "Expired"}
+                                : "Expired"
+                            }
 
-                        </span>
+                          </span>
+
+                        </div>
+
+                        <p className="text-gray-400">
+
+                          Join:
+                          {" "}
+
+                          {
+                            new Date(
+                              member.joinDate
+                            ).toLocaleDateString()
+                          }
+
+                        </p>
+
+                        <p className="text-gray-400">
+
+                          Expiry:
+                          {" "}
+
+                          {
+                            new Date(
+                              member.expiryDate
+                            ).toLocaleDateString()
+                          }
+
+                        </p>
 
                       </div>
 
-                      <p className="text-gray-400">
-                        Join:
-                        {" "}
-                        {
-                          new Date(
-                            member.joinDate
-                          ).toLocaleDateString()
-                        }
-                      </p>
-
-                      <p className="text-gray-400">
-                        Expiry:
-                        {" "}
-                        {
-                          new Date(
-                            member.expiryDate
-                          ).toLocaleDateString()
-                        }
-                      </p>
-
                     </div>
+
+                    <button
+                      onClick={() =>
+                        deleteMember(
+                          member._id
+                        )
+                      }
+                      className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-700 transition"
+                    >
+                      Delete
+                    </button>
 
                   </div>
 
-                  <button
-                    onClick={() =>
-                      deleteMember(member._id)
-                    }
-                    className="bg-red-500 px-6 py-3 rounded-xl hover:bg-red-700 transition"
-                  >
-                    Delete
-                  </button>
-
                 </div>
 
-              </div>
-
-            ))
+              )
+            )
 
           ) : (
 
@@ -326,6 +406,7 @@ function Admin() {
     </div>
 
   );
+
 }
 
 export default Admin;
