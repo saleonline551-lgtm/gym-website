@@ -176,6 +176,38 @@ function Dashboard() {
 
   };
 
+  // MEMBERSHIP ALERT
+  const getRemainingDays = () => {
+
+    if (!myMembership)
+      return null;
+
+    const today =
+      new Date();
+
+    const expiry =
+      new Date(
+        myMembership.expiryDate
+      );
+
+    const difference =
+      expiry - today;
+
+    const days =
+      Math.ceil(
+        difference /
+        (
+          1000 * 60 * 60 * 24
+        )
+      );
+
+    return days;
+
+  };
+
+  const remainingDays =
+    getRemainingDays();
+
   return (
 
     <div className="min-h-screen bg-black text-white p-10">
@@ -205,6 +237,50 @@ function Dashboard() {
       </div>
 
 
+      {/* EXPIRY ALERT */}
+      {myMembership && (
+
+        remainingDays <= 0 ? (
+
+          <div className="bg-red-600 p-6 rounded-2xl mb-10">
+
+            <h1 className="text-3xl font-bold">
+              Membership Expired ❌
+            </h1>
+
+            <p className="mt-3 text-xl">
+              Renew your membership
+              to continue gym access.
+            </p>
+
+          </div>
+
+        ) : remainingDays <= 5 ? (
+
+          <div className="bg-yellow-500 text-black p-6 rounded-2xl mb-10">
+
+            <h1 className="text-3xl font-bold">
+              Membership Expiring Soon ⚠️
+            </h1>
+
+            <p className="mt-3 text-xl">
+
+              Your membership will
+              expire in
+              {" "}
+              {remainingDays}
+              {" "}
+              days.
+
+            </p>
+
+          </div>
+
+        ) : null
+
+      )}
+
+
       {/* PROFILE CARD */}
       <div className="bg-gray-900 p-8 rounded-2xl mb-10">
 
@@ -232,7 +308,13 @@ function Dashboard() {
             <span className="text-red-500">
               Status:
             </span>{" "}
-            Active Member
+
+            {
+              remainingDays > 0
+                ? "Active Member"
+                : "Expired"
+            }
+
           </p>
 
         </div>
@@ -260,19 +342,9 @@ function Dashboard() {
 
             <p className="text-2xl">
               <span className="text-red-500">
-                Status:
+                Remaining Days:
               </span>{" "}
-
-              {
-                new Date(
-                  myMembership.expiryDate
-                ) > new Date()
-
-                  ? "Active"
-
-                  : "Expired"
-              }
-
+              {remainingDays}
             </p>
 
             <p className="text-2xl">
