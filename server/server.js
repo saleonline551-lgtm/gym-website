@@ -22,6 +22,9 @@ require("./routes/galleryRoutes");
 const dietRoutes =
 require("./routes/dietRoutes");
 
+const attendanceRoutes =
+require("./routes/attendanceRoutes");
+
 const app = express();
 
 app.use(cors());
@@ -57,6 +60,11 @@ app.use(
 app.use(
   "/api/diets",
   dietRoutes
+);
+
+app.use(
+  "/api/attendance",
+  attendanceRoutes
 );
 
 
