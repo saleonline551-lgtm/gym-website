@@ -28,6 +28,8 @@ import GalleryAdmin from "./pages/GalleryAdmin";
 
 import DietAdmin from "./pages/DietAdmin";
 
+import AttendanceAdmin from "./pages/AttendanceAdmin";
+
 import AdminRoute from "./components/AdminRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -111,6 +113,15 @@ function App() {
           element={
             <AdminRoute>
               <DietAdmin />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/attendance-admin"
+          element={
+            <AdminRoute>
+              <AttendanceAdmin />
             </AdminRoute>
           }
         />
