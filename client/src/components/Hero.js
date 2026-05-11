@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -28,9 +29,12 @@ function Hero() {
           premium fitness experience.
         </p>
 
-        <button className="mt-8 bg-red-500 px-8 py-4 rounded-lg text-xl hover:bg-red-600 hover:scale-105 transition">
-          Join Today
-        </button>
+        <Link
+  to="/register"
+  className="bg-red-500 px-10 py-5 rounded-2xl hover:bg-red-600 transition inline-block"
+>
+  Join Today
+</Link>
 
       </motion.div>
 
