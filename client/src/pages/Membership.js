@@ -20,6 +20,7 @@ function Membership() {
       name: "",
       email: "",
       plan: "",
+      trainer: "",
 
     });
 
@@ -83,6 +84,7 @@ function Membership() {
           name: "",
           email: "",
           plan: "",
+          trainer: "",
 
         });
 
@@ -156,6 +158,33 @@ function Membership() {
 
             <option value="VIP">
               VIP
+            </option>
+
+          </select>
+
+
+          {/* OPTIONAL TRAINER */}
+          <select
+            name="trainer"
+            value={formData.trainer}
+            onChange={handleChange}
+            className="w-full p-4 mb-5 rounded-xl bg-black outline-none border border-gray-700"
+          >
+
+            <option value="">
+              Choose Trainer (Optional)
+            </option>
+
+            <option value="John">
+              John
+            </option>
+
+            <option value="Alex">
+              Alex
+            </option>
+
+            <option value="David">
+              David
             </option>
 
           </select>
