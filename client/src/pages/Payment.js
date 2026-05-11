@@ -44,13 +44,7 @@ function Payment() {
 
       setTimeout(() => {
 
-        alert(
-          "Payment Successful ✅"
-        );
-
-        navigate(
-          "/dashboard"
-        );
+        navigate("/success");
 
       }, 2500);
 

@@ -6,6 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 
+import Success from "./pages/Success";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -88,6 +90,12 @@ function App() {
         <Route
           path="/payment"
           element={<Payment />}
+        />
+
+        {/* SUCCESS PAGE */}
+        <Route
+          path="/success"
+          element={<Success />}
         />
 
         <Route
