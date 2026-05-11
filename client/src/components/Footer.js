@@ -7,6 +7,10 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 
+import {
+  Link
+} from "react-router-dom";
+
 function Footer() {
 
   return (
@@ -39,24 +43,59 @@ function Footer() {
 
           <ul className="space-y-3 text-gray-400">
 
-            <li className="hover:text-red-500 cursor-pointer">
-              Home
+            <li>
+
+              <Link
+                to="/"
+                className="hover:text-red-500 transition"
+              >
+                Home
+              </Link>
+
             </li>
 
-            <li className="hover:text-red-500 cursor-pointer">
-              About
+            <li>
+
+              <a
+                href="#about"
+                className="hover:text-red-500 transition"
+              >
+                About
+              </a>
+
             </li>
 
-            <li className="hover:text-red-500 cursor-pointer">
-              Plans
+            <li>
+
+              <a
+                href="#plans"
+                className="hover:text-red-500 transition"
+              >
+                Plans
+              </a>
+
             </li>
 
-            <li className="hover:text-red-500 cursor-pointer">
-              Trainers
+            <li>
+
+              <Link
+                to="/trainer"
+                className="hover:text-red-500 transition"
+              >
+                Trainers
+              </Link>
+
             </li>
 
-            <li className="hover:text-red-500 cursor-pointer">
-              Contact
+            <li>
+
+              <Link
+                to="/contact"
+                className="hover:text-red-500 transition"
+              >
+                Contact
+              </Link>
+
             </li>
 
           </ul>
