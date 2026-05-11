@@ -70,6 +70,13 @@ function AdminSidebar() {
         </Link>
 
         <Link
+          to="/workout-admin"
+          className="bg-black p-4 rounded-xl hover:bg-red-500 transition"
+        >
+          Workout Plans
+        </Link>
+
+        <Link
           to="/attendance-admin"
           className="bg-black p-4 rounded-xl hover:bg-red-500 transition"
         >
