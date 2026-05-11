@@ -15,7 +15,10 @@ function Footer() {
 
   return (
 
-    <div className="bg-gray-950 text-white pt-16 pb-10 px-10">
+    <div
+  data-aos="fade-up"
+  className="bg-gray-950 text-white pt-16 pb-10 px-10"
+>
 
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
 

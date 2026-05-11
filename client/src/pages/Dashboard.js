@@ -383,7 +383,10 @@ function Dashboard() {
       {/* STATS */}
       <div className="grid md:grid-cols-4 gap-8 mb-12">
 
-        <div className="bg-gray-900 p-8 rounded-2xl">
+        <div
+  data-aos="fade-up"
+  className="bg-gray-900 p-8 rounded-2xl hover:border hover:border-red-500 transition duration-300"
+>
 
           <h2 className="text-2xl text-gray-400">
             Total Memberships
@@ -395,7 +398,10 @@ function Dashboard() {
 
         </div>
 
-        <div className="bg-gray-900 p-8 rounded-2xl">
+        <div
+  data-aos="fade-up"
+  className="bg-gray-900 p-8 rounded-2xl hover:border hover:border-red-500 transition duration-300"
+>
 
           <h2 className="text-2xl text-gray-400">
             Active Trainers
@@ -407,7 +413,10 @@ function Dashboard() {
 
         </div>
 
-        <div className="bg-gray-900 p-8 rounded-2xl">
+      <div
+  data-aos="fade-up"
+  className="bg-gray-900 p-8 rounded-2xl hover:border hover:border-red-500 transition duration-300"
+>
 
           <h2 className="text-2xl text-gray-400">
             Membership Plans
@@ -419,7 +428,10 @@ function Dashboard() {
 
         </div>
 
-        <div className="bg-gray-900 p-8 rounded-2xl">
+        <div
+  data-aos="fade-up"
+  className="bg-gray-900 p-8 rounded-2xl hover:border hover:border-red-500 transition duration-300"
+>
 
           <h2 className="text-2xl text-gray-400">
             Attendance
@@ -550,14 +562,15 @@ function Dashboard() {
             gallery.map((item) => (
 
               <div
-                key={item._id}
-                className="bg-black p-4 rounded-2xl border border-gray-800"
-              >
+  key={item._id}
+  data-aos="zoom-in"
+  className="bg-black p-4 rounded-2xl border border-gray-800 hover:border-red-500 transition duration-300"
+>
 
                 <img
                   src={item.image}
                   alt=""
-                  className="w-full h-64 object-cover rounded-xl"
+                  className="w-full h-64 object-cover rounded-xl hover:scale-105 transition duration-500"
                 />
 
               </div>

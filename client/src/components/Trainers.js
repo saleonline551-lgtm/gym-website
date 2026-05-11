@@ -1,32 +1,39 @@
 import React from "react";
+
 import { motion } from "framer-motion";
 
 function Trainers() {
 
   const trainers = [
+
     {
       name: "John",
       role: "Bodybuilding Coach",
       image:
         "https://images.unsplash.com/photo-1567013127542-490d757e51fc",
     },
+
     {
       name: "Alex",
       role: "Fitness Trainer",
       image:
         "https://images.unsplash.com/photo-1549476464-37392f717541",
     },
+
     {
       name: "David",
       role: "Cardio Expert",
       image:
         "https://images.unsplash.com/photo-1517836357463-d25dfeac3438",
     },
+
   ];
 
   return (
+
     <div
       id="trainers"
+      data-aos="fade-up"
       className="bg-black text-white py-20 px-10"
     >
 
@@ -40,18 +47,33 @@ function Trainers() {
 
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            whileHover={{ scale: 1.03 }}
-            className="bg-gray-900 rounded-2xl overflow-hidden shadow-lg"
+            data-aos="fade-right"
+            initial={{
+              opacity: 0,
+              x: -100
+            }}
+            whileInView={{
+              opacity: 1,
+              x: 0
+            }}
+            transition={{
+              duration: 0.7
+            }}
+            whileHover={{
+              scale: 1.05
+            }}
+            className="bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-800 hover:border-red-500 transition duration-300"
           >
 
-            <img
-              src={trainer.image}
-              alt=""
-              className="h-96 w-full object-cover hover:scale-110 transition duration-500"
-            />
+            <div className="overflow-hidden">
+
+              <img
+                src={trainer.image}
+                alt=""
+                className="h-96 w-full object-cover hover:scale-110 transition duration-500"
+              />
+
+            </div>
 
             <div className="p-6">
 
@@ -72,7 +94,9 @@ function Trainers() {
       </div>
 
     </div>
+
   );
+
 }
 
 export default Trainers;

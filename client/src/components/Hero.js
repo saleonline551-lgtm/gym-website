@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function Hero() {
   return (
     <div
+    data-aos="fade-up"
       id="home"
       className="h-screen bg-cover bg-center flex items-center px-10 text-white"
       style={{
