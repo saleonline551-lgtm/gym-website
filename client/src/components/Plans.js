@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function Plans() {
 
@@ -54,9 +55,12 @@ function Plans() {
               workout sessions and premium equipment.
             </p>
 
-            <button className="bg-red-500 w-full py-3 rounded-lg hover:bg-red-600 hover:scale-105 transition">
-              Choose Plan
-            </button>
+            <Link
+  to="/login"
+  className="block w-full bg-red-500 py-4 rounded-xl hover:bg-red-600 text-center"
+>
+  Choose Plan
+</Link>
 
           </motion.div>
 
