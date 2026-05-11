@@ -50,7 +50,7 @@ function Login() {
 
       } else {
 
-        navigate("/dashboard");
+        navigate("/membership")
 
       }
 

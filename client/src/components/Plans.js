@@ -76,7 +76,7 @@ function Plans() {
             </p>
 
             <Link
-              to="/payment"
+              to="/login"
               className="block w-full bg-red-500 py-4 rounded-xl hover:bg-red-600 text-center transition"
             >
               Choose Plan
