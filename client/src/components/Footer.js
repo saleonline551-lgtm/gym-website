@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   FaFacebookF,
   FaInstagram,
@@ -7,10 +8,12 @@ import {
 } from "react-icons/fa";
 
 function Footer() {
+
   return (
+
     <div className="bg-gray-950 text-white pt-16 pb-10 px-10">
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10">
 
         {/* Logo Section */}
         <div>
@@ -25,6 +28,7 @@ function Footer() {
           </p>
 
         </div>
+
 
         {/* Quick Links */}
         <div>
@@ -59,6 +63,7 @@ function Footer() {
 
         </div>
 
+
         {/* Social Icons */}
         <div>
 
@@ -88,7 +93,31 @@ function Footer() {
 
         </div>
 
+
+        {/* MAP SECTION */}
+        <div>
+
+          <h2 className="text-2xl font-bold mb-5">
+            Gym Location
+          </h2>
+
+          <iframe
+            title="gym-location"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.199700794804!2d77.5946!3d12.9716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670d3b44d8f%3A0x2b1d8c6c7a3b9c5e!2sGym!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+            width="100%"
+            height="220"
+            style={{
+              border: 0,
+              borderRadius: "20px",
+            }}
+            allowFullScreen=""
+            loading="lazy"
+          ></iframe>
+
+        </div>
+
       </div>
+
 
       {/* Bottom */}
       <div className="border-t border-gray-800 mt-16 pt-8 text-center text-gray-500">
@@ -98,7 +127,9 @@ function Footer() {
       </div>
 
     </div>
+
   );
+
 }
 
 export default Footer;
