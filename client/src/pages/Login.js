@@ -52,7 +52,7 @@ function Login() {
 
       });
 
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
 
