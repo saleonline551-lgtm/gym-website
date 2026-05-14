@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 import {
-  signInWithPopup
+  signInWithRedirect,
+  getRedirectResult
 } from "firebase/auth";
 
 import {
@@ -19,6 +20,39 @@ function Login() {
     email: "",
     password: "",
   });
+
+  // GOOGLE REDIRECT RESULT
+
+  useEffect(() => {
+
+    getRedirectResult(auth)
+      .then((result) => {
+
+        if (result) {
+
+          const user = result.user;
+
+          localStorage.setItem(
+            "user",
+            JSON.stringify(user)
+          );
+
+          alert("Google Login Successful");
+
+          navigate("/dashboard");
+
+        }
+
+      })
+      .catch((error) => {
+
+        console.log(error);
+
+        alert(error.message);
+
+      });
+
+  }, []);
 
   const handleChange = (e) => {
 
@@ -54,15 +88,11 @@ function Login() {
 
       alert(res.data.message);
 
-      // ADMIN LOGIN
-
       if (res.data.user.role === "admin") {
 
         navigate("/admin");
 
       } else {
-
-        // USER LOGIN → DASHBOARD
 
         navigate("/dashboard");
 
@@ -82,37 +112,22 @@ function Login() {
 
   const googleLogin = async () => {
 
-  try {
+    try {
 
-    const result = await signInWithPopup(
-      auth,
-      provider
-    );
+      await signInWithRedirect(
+        auth,
+        provider
+      );
 
-    const user = result.user;
+    } catch (error) {
 
-    console.log("USER:", user);
+      console.log(error);
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify(user)
-    );
+      alert(error.message);
 
-    alert("Google Login Successful");
+    }
 
-    navigate("/dashboard");
-
-  } catch (error) {
-
-    console.log("ERROR CODE:", error.code);
-
-    console.log("ERROR MESSAGE:", error.message);
-
-    alert(error.message);
-
-  }
-
-};
+  };
 
   return (
 
