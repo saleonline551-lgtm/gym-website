@@ -82,35 +82,37 @@ function Login() {
 
   const googleLogin = async () => {
 
-    try {
+  try {
 
-      const result = await signInWithPopup(
-        auth,
-        provider
-      );
+    const result = await signInWithPopup(
+      auth,
+      provider
+    );
 
-      const user = result.user;
+    const user = result.user;
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify(user)
-      );
+    console.log("USER:", user);
 
-      alert("Google Login Successful");
+    localStorage.setItem(
+      "user",
+      JSON.stringify(user)
+    );
 
-      // GOOGLE USER → DASHBOARD
+    alert("Google Login Successful");
 
-      navigate("/dashboard");
+    navigate("/dashboard");
 
-    } catch (error) {
+  } catch (error) {
 
-      console.log(error);
+    console.log("ERROR CODE:", error.code);
 
-      alert("Google Login Failed");
+    console.log("ERROR MESSAGE:", error.message);
 
-    }
+    alert(error.message);
 
-  };
+  }
+
+};
 
   return (
 
