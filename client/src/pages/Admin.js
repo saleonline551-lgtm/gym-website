@@ -363,46 +363,6 @@ function Admin() {
 
                           </span>
 
-                          {/* WORKOUT */}
-
-                          <div className="bg-gray-900 p-4 rounded-2xl border border-gray-800">
-
-                            <p className="text-gray-400 text-sm mb-2">
-                              Daily Workout
-                            </p>
-
-                            <h1 className="text-white font-bold leading-7">
-
-                              {
-                                member.workoutPlan
-                                  ? member.workoutPlan
-                                  : "No Workout Assigned"
-                              }
-
-                            </h1>
-
-                          </div>
-
-                          {/* DIET */}
-
-                          <div className="bg-gray-900 p-4 rounded-2xl border border-gray-800">
-
-                            <p className="text-gray-400 text-sm mb-2">
-                              Daily Diet
-                            </p>
-
-                            <h1 className="text-white font-bold leading-7">
-
-                              {
-                                member.dietPlan
-                                  ? member.dietPlan
-                                  : "No Diet Assigned"
-                              }
-
-                            </h1>
-
-                          </div>
-
                         </div>
 
                       </div>
