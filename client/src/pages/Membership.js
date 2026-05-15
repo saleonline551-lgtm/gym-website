@@ -19,20 +19,54 @@ function Membership() {
 
       name: "",
       email: "",
+      mobile: "",
       plan: "",
       trainer: "",
+      amount: 0,
 
     });
 
   const handleChange =
     (e) => {
 
+      const {
+        name,
+        value
+      } = e.target;
+
+      let amount = formData.amount;
+
+      // PLAN PRICE
+
+      if (name === "plan") {
+
+        if (value === "Monthly") {
+
+          amount = 999;
+
+        } else if (
+          value === "Quarterly"
+        ) {
+
+          amount = 2499;
+
+        } else if (
+          value === "Yearly"
+        ) {
+
+          amount = 6999;
+
+        }
+
+      }
+
       setFormData({
 
         ...formData,
 
-        [e.target.name]:
-          e.target.value,
+        [name]: value,
+
+        amount,
 
       });
 
@@ -45,55 +79,48 @@ function Membership() {
 
       try {
 
-        // JOIN DATE
-        const joinDate =
-          new Date();
-
-        // EXPIRY DATE
-        const expiryDate =
-          new Date();
-
-        expiryDate.setMonth(
-          expiryDate.getMonth() + 1
-        );
-
-        const membershipData = {
-
-          ...formData,
-
-          status: "Active",
-
-          joinDate,
-
-          expiryDate,
-
-        };
+        // SAVE MEMBERSHIP
 
         const res =
           await axios.post(
             "https://gym-backend-8dou.onrender.com/api/membership",
-            membershipData
+            formData
           );
 
         alert(
           res.data.message
         );
 
+        // SAVE DATA FOR PAYMENT
+
+        localStorage.setItem(
+          "membership",
+          JSON.stringify(formData)
+        );
+
         setFormData({
 
           name: "",
           email: "",
+          mobile: "",
           plan: "",
           trainer: "",
+          amount: 0,
 
         });
 
         // PAYMENT PAGE
+
         navigate("/payment");
 
       } catch (error) {
 
         console.log(error);
+
+        alert(
+          error.response?.data?.message ||
+          "Membership Failed"
+        );
 
       }
 
@@ -136,6 +163,18 @@ function Membership() {
             required
           />
 
+          <input
+            type="text"
+            name="mobile"
+            placeholder="Enter Mobile Number"
+            value={formData.mobile}
+            onChange={handleChange}
+            className="w-full p-4 mb-5 rounded-xl bg-black outline-none border border-gray-700"
+            required
+          />
+
+          {/* MEMBERSHIP PLAN */}
+
           <select
             name="plan"
             value={formData.plan}
@@ -148,22 +187,22 @@ function Membership() {
               Select Plan
             </option>
 
-            <option value="Basic">
-              Basic
+            <option value="Monthly">
+              Monthly - ₹999
             </option>
 
-            <option value="Premium">
-              Premium
+            <option value="Quarterly">
+              Quarterly - ₹2499
             </option>
 
-            <option value="VIP">
-              VIP
+            <option value="Yearly">
+              Yearly - ₹6999
             </option>
 
           </select>
 
+          {/* TRAINER */}
 
-          {/* OPTIONAL TRAINER */}
           <select
             name="trainer"
             value={formData.trainer}
@@ -188,6 +227,22 @@ function Membership() {
             </option>
 
           </select>
+
+          {/* AMOUNT */}
+
+          <div className="bg-black border border-red-500 rounded-xl p-4 mb-5 text-center">
+
+            <p className="text-gray-400">
+              Total Amount
+            </p>
+
+            <h1 className="text-3xl font-bold text-red-500">
+
+              ₹ {formData.amount}
+
+            </h1>
+
+          </div>
 
           <button
             className="w-full bg-red-500 py-4 rounded-xl hover:bg-red-600 transition text-xl font-bold"

@@ -7,35 +7,74 @@ const router = express.Router();
 
 
 // CREATE MEMBERSHIP
+
 router.post("/", async (req, res) => {
 
   try {
 
-    const joinDate =
+    const {
+      name,
+      email,
+      mobile,
+      plan,
+      amount
+    } = req.body;
+
+    // START DATE
+
+    const startDate =
       new Date();
+
+    // EXPIRY DATE
 
     const expiryDate =
       new Date();
 
-    expiryDate.setMonth(
-      expiryDate.getMonth() + 1
-    );
+    // PLAN LOGIC
+
+    if (plan === "Monthly") {
+
+      expiryDate.setDate(
+        expiryDate.getDate() + 30
+      );
+
+    } else if (plan === "Quarterly") {
+
+      expiryDate.setDate(
+        expiryDate.getDate() + 90
+      );
+
+    } else if (plan === "Yearly") {
+
+      expiryDate.setDate(
+        expiryDate.getDate() + 365
+      );
+
+    }
+
+    // CREATE MEMBERSHIP
 
     const membership =
       await Membership.create({
 
-        ...req.body,
+        name,
+        email,
+        mobile,
+        plan,
+        amount,
 
-        joinDate,
+        startDate,
 
         expiryDate,
+
+        status: "active",
 
       });
 
     res.status(201).json({
 
       message:
-        "Membership Booked",
+        "Membership Activated Successfully",
 
       membership,
 
@@ -53,6 +92,7 @@ router.post("/", async (req, res) => {
 
 
 // GET ALL MEMBERSHIPS
+
 router.get("/", async (req, res) => {
 
   try {
@@ -60,8 +100,26 @@ router.get("/", async (req, res) => {
     const memberships =
       await Membership.find();
 
+    // AUTO EXPIRE CHECK
+
+    const updatedMemberships =
+      memberships.map((m) => {
+
+        if (
+          new Date(m.expiryDate) <
+          new Date()
+        ) {
+
+          m.status = "expired";
+
+        }
+
+        return m;
+
+      });
+
     res.status(200).json(
-      memberships
+      updatedMemberships
     );
 
   } catch (error) {
@@ -76,6 +134,7 @@ router.get("/", async (req, res) => {
 
 
 // RENEW MEMBERSHIP
+
 router.put("/renew/:id", async (req, res) => {
 
   try {
@@ -94,24 +153,51 @@ router.put("/renew/:id", async (req, res) => {
 
     }
 
+    // NEW EXPIRY
+
     const newExpiryDate =
       new Date(
         membership.expiryDate
       );
 
-    newExpiryDate.setMonth(
-      newExpiryDate.getMonth() + 1
-    );
+    if (
+      membership.plan === "Monthly"
+    ) {
+
+      newExpiryDate.setDate(
+        newExpiryDate.getDate() + 30
+      );
+
+    } else if (
+      membership.plan === "Quarterly"
+    ) {
+
+      newExpiryDate.setDate(
+        newExpiryDate.getDate() + 90
+      );
+
+    } else if (
+      membership.plan === "Yearly"
+    ) {
+
+      newExpiryDate.setDate(
+        newExpiryDate.getDate() + 365
+      );
+
+    }
 
     membership.expiryDate =
       newExpiryDate;
+
+    membership.status =
+      "active";
 
     await membership.save();
 
     res.status(200).json({
 
       message:
-        "Membership Renewed",
+        "Membership Renewed Successfully",
 
       membership,
 
@@ -129,6 +215,7 @@ router.put("/renew/:id", async (req, res) => {
 
 
 // DELETE MEMBERSHIP
+
 router.delete("/:id", async (req, res) => {
 
   try {
