@@ -40,6 +40,8 @@ function Admin() {
     localStorage.getItem("user")
   );
 
+  // FETCH DATA
+
   const fetchData =
     async () => {
 
@@ -105,12 +107,14 @@ function Admin() {
 
   }, [navigate, user?.role]);
 
+  // DELETE MEMBER
+
   const deleteMember =
     async (id) => {
 
       const confirmDelete =
         window.confirm(
-          "Delete this member?"
+          "Delete this customer?"
         );
 
       if (!confirmDelete)
@@ -131,6 +135,8 @@ function Admin() {
       }
 
     };
+
+  // RENEW MEMBERSHIP
 
   const renewMembership =
     async (id) => {
@@ -155,6 +161,8 @@ function Admin() {
 
     };
 
+  // SEARCH FILTER
+
   const filteredMembers =
     memberships.filter(
       (member) =>
@@ -172,9 +180,11 @@ function Admin() {
     <div className="flex bg-black text-white min-h-screen">
 
       {/* SIDEBAR */}
+
       <AdminSidebar />
 
       {/* CONTENT */}
+
       <div className="flex-1 p-10">
 
         <h1 className="text-5xl font-bold text-red-500 mb-3">
@@ -185,14 +195,14 @@ function Admin() {
           Gym Management Dashboard
         </p>
 
-
         {/* ANALYTICS */}
+
         <div className="grid md:grid-cols-5 gap-6 mb-10">
 
           <div className="bg-gray-900 p-6 rounded-2xl">
 
             <h2 className="text-gray-400 text-xl">
-              Members
+              Customers
             </h2>
 
             <h1 className="text-5xl font-bold text-red-500 mt-4">
@@ -240,7 +250,7 @@ function Admin() {
           <div className="bg-gray-900 p-6 rounded-2xl">
 
             <h2 className="text-gray-400 text-xl">
-              Active Members
+              Active Customers
             </h2>
 
             <h1 className="text-5xl font-bold text-red-500 mt-4">
@@ -260,13 +270,13 @@ function Admin() {
 
         </div>
 
-
         {/* SEARCH */}
+
         <div className="mb-8">
 
           <input
             type="text"
-            placeholder="Search Members..."
+            placeholder="Search Customers..."
             value={search}
             onChange={(e) =>
               setSearch(
@@ -278,12 +288,12 @@ function Admin() {
 
         </div>
 
+        {/* CUSTOMERS LIST */}
 
-        {/* MEMBERS */}
         <div className="bg-gray-900 p-8 rounded-2xl">
 
           <h1 className="text-4xl font-bold mb-8">
-            Members List
+            Customers List
           </h1>
 
           <div className="space-y-6">
@@ -295,26 +305,33 @@ function Admin() {
 
                   <div
                     key={member._id}
-                    className="bg-black p-6 rounded-2xl border border-gray-800"
+
+                    onClick={() =>
+                      navigate(
+                        `/customer/${member.email}`
+                      )
+                    }
+
+                    className="bg-black p-6 rounded-2xl border border-gray-800 cursor-pointer hover:border-red-500 hover:scale-[1.01] transition duration-300"
                   >
 
-                    <h1 className="text-3xl font-bold text-white">
-                      {member.name}
-                    </h1>
-
-                    <p className="text-gray-400 mt-2">
-                      {member.email}
-                    </p>
-
-                    <div className="flex justify-between items-center mt-5">
+                    <div className="flex justify-between items-center">
 
                       <div>
 
-                        <span className="text-red-500 text-2xl">
-                          {member.plan}
-                        </span>
+                        <h1 className="text-3xl font-bold text-white">
+                          {member.name}
+                        </h1>
 
-                        <div className="mt-4 space-y-3">
+                        <p className="text-gray-400 mt-2">
+                          {member.email}
+                        </p>
+
+                        <div className="mt-5 space-y-3">
+
+                          <p className="text-red-500 text-2xl">
+                            {member.plan}
+                          </p>
 
                           <span
                             className={`px-4 py-2 rounded-lg font-bold ${
@@ -370,9 +387,15 @@ function Admin() {
 
                       </div>
 
-
                       {/* BUTTONS */}
-                      <div className="flex gap-4">
+
+                      <div
+                        className="flex gap-4"
+
+                        onClick={(e) =>
+                          e.stopPropagation()
+                        }
+                      >
 
                         <button
                           onClick={() =>
@@ -408,7 +431,7 @@ function Admin() {
             ) : (
 
               <p className="text-gray-400 text-xl">
-                No Members Found
+                No Customers Found
               </p>
 
             )}

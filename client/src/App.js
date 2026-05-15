@@ -40,6 +40,8 @@ import ContactAdmin from "./pages/ContactAdmin";
 
 import WorkoutAdmin from "./pages/WorkoutAdmin";
 
+import CustomerDetails from "./pages/CustomerDetails";
+
 import AdminRoute from "./components/AdminRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -93,10 +95,13 @@ function App() {
         />
 
         {/* SUCCESS PAGE */}
+
         <Route
           path="/success"
           element={<Success />}
         />
+
+        {/* ADMIN */}
 
         <Route
           path="/admin"
@@ -169,6 +174,19 @@ function App() {
             </AdminRoute>
           }
         />
+
+        {/* CUSTOMER DETAILS */}
+
+        <Route
+          path="/customer/:email"
+          element={
+            <AdminRoute>
+              <CustomerDetails />
+            </AdminRoute>
+          }
+        />
+
+        {/* USER */}
 
         <Route
           path="/dashboard"
