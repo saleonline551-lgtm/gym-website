@@ -31,11 +31,17 @@ function CustomerDetails() {
 
   useEffect(() => {
 
-    fetchCustomer();
+  const loadData = async () => {
 
-    fetchAttendance();
+    await fetchCustomer();
 
-  }, []);
+    await fetchAttendance();
+
+  };
+
+  loadData();
+
+}, [email]);
 
   // FETCH CUSTOMER
 
