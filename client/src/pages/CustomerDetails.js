@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-use-before-define */
-
 import React, {
   useEffect,
   useState
@@ -29,6 +26,16 @@ function CustomerDetails() {
   const [attendance,
     setAttendance] =
     useState([]);
+
+  // FETCH DATA
+
+  useEffect(() => {
+
+    fetchCustomer();
+
+    fetchAttendance();
+
+  }, []);
 
   // FETCH CUSTOMER
 
@@ -82,16 +89,6 @@ function CustomerDetails() {
 
     };
 
-  // USE EFFECT
-
-  useEffect(() => {
-
-    fetchCustomer();
-
-    fetchAttendance();
-
-  }, []);
-
   if (!customer) {
 
     return (
@@ -110,124 +107,182 @@ function CustomerDetails() {
 
     <div className="min-h-screen bg-black text-white p-10">
 
+      {/* BACK BUTTON */}
+
       <button
         onClick={() =>
           navigate("/admin")
         }
-        className="bg-red-500 px-6 py-3 rounded-xl mb-8"
+        className="bg-red-500 px-6 py-3 rounded-xl mb-8 hover:bg-red-700 transition"
       >
         Back
       </button>
 
-      {/* CUSTOMER DETAILS */}
+      {/* PROFILE SECTION */}
 
       <div className="bg-gray-900 p-10 rounded-3xl mb-10 border border-gray-800">
 
-  {/* TOP BAR */}
+        {/* TOP BAR */}
 
-  <div className="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-10">
+        <div className="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-10">
 
-    <div>
+          <div>
 
-      <h1 className="text-5xl font-bold text-red-500">
-        Customer Profile
-      </h1>
+            <h1 className="text-5xl font-bold text-red-500">
+              Customer Profile
+            </h1>
 
-      <p className="text-gray-400 mt-3 text-lg">
-        Complete customer analytics & activity
-      </p>
+            <p className="text-gray-400 mt-3 text-lg">
+              Complete customer analytics & activity
+            </p>
 
-    </div>
+          </div>
 
-    <div className="flex gap-4">
+          <div>
 
-      <span
-        className={`px-6 py-3 rounded-2xl font-bold text-lg ${
-          new Date(
-            customer.expiryDate
-          ) > new Date()
+            <span
+              className={`px-6 py-3 rounded-2xl font-bold text-lg ${
+                new Date(
+                  customer.expiryDate
+                ) > new Date()
 
-            ? "bg-green-500 text-black"
+                  ? "bg-green-500 text-black"
 
-            : "bg-red-500 text-white"
-        }`}
-      >
+                  : "bg-red-500 text-white"
+              }`}
+            >
 
-        {
-          new Date(
-            customer.expiryDate
-          ) > new Date()
+              {
+                new Date(
+                  customer.expiryDate
+                ) > new Date()
 
-            ? "ACTIVE"
+                  ? "ACTIVE"
 
-            : "EXPIRED"
-        }
+                  : "EXPIRED"
+              }
 
-      </span>
+            </span>
 
-    </div>
+          </div>
 
-  </div>
+        </div>
 
-  {/* CUSTOMER INFO GRID */}
+        {/* GRID */}
 
-  <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
 
-    <div className="bg-black p-6 rounded-2xl border border-gray-800">
+          {/* NAME */}
 
-      <p className="text-gray-400 text-lg">
-        Customer Name
-      </p>
+          <div className="bg-black p-6 rounded-2xl border border-gray-800">
 
-      <h1 className="text-3xl font-bold mt-2">
-        {customer.name}
-      </h1>
+            <p className="text-gray-400 text-lg">
+              Customer Name
+            </p>
 
-    </div>
+            <h1 className="text-3xl font-bold mt-2">
+              {customer.name}
+            </h1>
 
-    <div className="bg-black p-6 rounded-2xl border border-gray-800">
+          </div>
 
-      <p className="text-gray-400 text-lg">
-        Email Address
-      </p>
+          {/* EMAIL */}
 
-      <h1 className="text-2xl font-bold mt-2 break-all">
-        {customer.email}
-      </h1>
+          <div className="bg-black p-6 rounded-2xl border border-gray-800">
 
-    </div>
+            <p className="text-gray-400 text-lg">
+              Email Address
+            </p>
 
-    <div className="bg-black p-6 rounded-2xl border border-gray-800">
+            <h1 className="text-2xl font-bold mt-2 break-all">
+              {customer.email}
+            </h1>
 
-      <p className="text-gray-400 text-lg">
-        Membership Plan
-      </p>
+          </div>
 
-      <h1 className="text-3xl font-bold text-red-500 mt-2">
-        {customer.plan}
-      </h1>
+          {/* PLAN */}
 
-    </div>
+          <div className="bg-black p-6 rounded-2xl border border-gray-800">
 
-    <div className="bg-black p-6 rounded-2xl border border-gray-800">
+            <p className="text-gray-400 text-lg">
+              Membership Plan
+            </p>
 
-      <p className="text-gray-400 text-lg">
-        Attendance Records
-      </p>
+            <h1 className="text-3xl font-bold text-red-500 mt-2">
+              {customer.plan}
+            </h1>
 
-      <h1 className="text-3xl font-bold mt-2">
-        {attendance.length}
-      </h1>
+          </div>
 
-    </div>
+          {/* ATTENDANCE */}
 
-  </div>
+          <div className="bg-black p-6 rounded-2xl border border-gray-800">
 
-</div>
+            <p className="text-gray-400 text-lg">
+              Attendance Records
+            </p>
 
-      {/* ATTENDANCE */}
+            <h1 className="text-3xl font-bold mt-2">
+              {attendance.length}
+            </h1>
 
-      <div className="bg-gray-900 p-10 rounded-2xl">
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* DAILY WORKOUT */}
+
+      <div className="bg-gray-900 p-10 rounded-3xl mb-10 border border-gray-800">
+
+        <h1 className="text-4xl font-bold text-red-500 mb-8">
+          Daily Workout
+        </h1>
+
+        <div className="bg-black p-8 rounded-2xl border border-gray-800">
+
+          <h1 className="text-2xl font-bold leading-10">
+
+            {
+              customer.workoutPlan
+                ? customer.workoutPlan
+                : "No Workout Assigned"
+            }
+
+          </h1>
+
+        </div>
+
+      </div>
+
+      {/* DAILY DIET */}
+
+      <div className="bg-gray-900 p-10 rounded-3xl mb-10 border border-gray-800">
+
+        <h1 className="text-4xl font-bold text-red-500 mb-8">
+          Daily Diet
+        </h1>
+
+        <div className="bg-black p-8 rounded-2xl border border-gray-800">
+
+          <h1 className="text-2xl font-bold leading-10">
+
+            {
+              customer.dietPlan
+                ? customer.dietPlan
+                : "No Diet Assigned"
+            }
+
+          </h1>
+
+        </div>
+
+      </div>
+
+      {/* ATTENDANCE HISTORY */}
+
+      <div className="bg-gray-900 p-10 rounded-3xl border border-gray-800">
 
         <h1 className="text-4xl font-bold text-red-500 mb-8">
           Attendance History
@@ -241,7 +296,7 @@ function CustomerDetails() {
 
               <div
                 key={item._id}
-                className="bg-black p-6 rounded-2xl flex justify-between items-center"
+                className="bg-black p-6 rounded-2xl flex justify-between items-center border border-gray-800"
               >
 
                 <div>
@@ -272,7 +327,7 @@ function CustomerDetails() {
 
           ) : (
 
-            <p className="text-gray-400">
+            <p className="text-gray-400 text-xl">
               No Attendance Found
             </p>
 
