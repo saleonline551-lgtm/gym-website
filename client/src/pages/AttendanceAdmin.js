@@ -10,8 +10,8 @@ import {
 } from "react-router-dom";
 
 import {
-  QrReader
-} from "react-qr-reader";
+  Html5QrcodeScanner
+} from "html5-qrcode";
 
 function AttendanceAdmin() {
 
@@ -60,6 +60,8 @@ function AttendanceAdmin() {
 
     };
 
+  // ADMIN CHECK
+
   useEffect(() => {
 
     if (
@@ -75,6 +77,84 @@ function AttendanceAdmin() {
     fetchAttendance();
 
   }, [navigate, user?.role]);
+
+  // QR SCANNER
+
+  useEffect(() => {
+
+    const scanner =
+      new Html5QrcodeScanner(
+
+        "reader",
+
+        {
+          fps: 10,
+          qrbox: 250,
+        },
+
+        false
+
+      );
+
+    scanner.render(
+
+      async (decodedText) => {
+
+        try {
+
+          setScanResult(
+            decodedText
+          );
+
+          const data =
+            JSON.parse(
+              decodedText
+            );
+
+          // SAVE ATTENDANCE
+
+          await axios.post(
+            "https://gym-backend-8dou.onrender.com/api/attendance",
+            {
+
+              name:
+                data.name,
+
+              email:
+                data.email,
+
+            }
+          );
+
+          fetchAttendance();
+
+          alert(
+            "Attendance Marked Successfully"
+          );
+
+        } catch (error) {
+
+          console.log(error);
+
+        }
+
+      },
+
+      (error) => {
+
+        console.log(error);
+
+      }
+
+    );
+
+    return () => {
+
+      scanner.clear();
+
+    };
+
+  }, []);
 
   // MANUAL ATTENDANCE
 
@@ -147,80 +227,10 @@ function AttendanceAdmin() {
           QR Attendance Scanner
         </h1>
 
-        <div className="bg-black p-5 rounded-2xl overflow-hidden">
-
-          <QrReader
-
-            constraints={{
-              facingMode:
-                "environment"
-            }}
-
-            onResult={async (
-              result,
-              error
-            ) => {
-
-              if (!!result) {
-
-                const text =
-                  result?.text;
-
-                setScanResult(
-                  text
-                );
-
-                try {
-
-                  const data =
-                    JSON.parse(
-                      text
-                    );
-
-                  // SAVE ATTENDANCE
-
-                  await axios.post(
-                    "https://gym-backend-8dou.onrender.com/api/attendance",
-                    {
-
-                      name:
-                        data.name,
-
-                      email:
-                        data.email,
-
-                    }
-                  );
-
-                  fetchAttendance();
-
-                  alert(
-                    "Attendance Marked Successfully"
-                  );
-
-                } catch (err) {
-
-                  console.log(err);
-
-                }
-
-              }
-
-              if (!!error) {
-
-                console.log(error);
-
-              }
-
-            }}
-
-            style={{
-              width: "100%"
-            }}
-
-          />
-
-        </div>
+        <div
+          id="reader"
+          className="bg-black p-5 rounded-2xl"
+        ></div>
 
         {scanResult && (
 
@@ -279,7 +289,7 @@ function AttendanceAdmin() {
 
       </form>
 
-      {/* LIST */}
+      {/* ATTENDANCE LIST */}
 
       <div className="space-y-6">
 
