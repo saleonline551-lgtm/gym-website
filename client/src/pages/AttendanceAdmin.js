@@ -9,6 +9,10 @@ import {
   useNavigate
 } from "react-router-dom";
 
+import {
+  QrReader
+} from "react-qr-reader";
+
 function AttendanceAdmin() {
 
   const navigate =
@@ -24,9 +28,15 @@ function AttendanceAdmin() {
   const [email, setEmail] =
     useState("");
 
+  const [scanResult,
+    setScanResult] =
+    useState("");
+
   const user = JSON.parse(
     localStorage.getItem("user")
   );
+
+  // FETCH ATTENDANCE
 
   const fetchAttendance =
     async () => {
@@ -66,6 +76,8 @@ function AttendanceAdmin() {
 
   }, [navigate, user?.role]);
 
+  // MANUAL ATTENDANCE
+
   const markAttendance =
     async (e) => {
 
@@ -86,6 +98,10 @@ function AttendanceAdmin() {
 
         fetchAttendance();
 
+        alert(
+          "Attendance Marked"
+        );
+
       } catch (error) {
 
         console.log(error);
@@ -93,6 +109,8 @@ function AttendanceAdmin() {
       }
 
     };
+
+  // DELETE ATTENDANCE
 
   const deleteAttendance =
     async (id) => {
@@ -121,18 +139,122 @@ function AttendanceAdmin() {
         Attendance System
       </h1>
 
-      {/* FORM */}
+      {/* QR SCANNER */}
+
+      <div className="bg-gray-900 p-8 rounded-2xl mb-10">
+
+        <h1 className="text-4xl font-bold text-red-500 mb-8">
+          QR Attendance Scanner
+        </h1>
+
+        <div className="bg-black p-5 rounded-2xl overflow-hidden">
+
+          <QrReader
+
+            constraints={{
+              facingMode:
+                "environment"
+            }}
+
+            onResult={async (
+              result,
+              error
+            ) => {
+
+              if (!!result) {
+
+                const text =
+                  result?.text;
+
+                setScanResult(
+                  text
+                );
+
+                try {
+
+                  const data =
+                    JSON.parse(
+                      text
+                    );
+
+                  // SAVE ATTENDANCE
+
+                  await axios.post(
+                    "https://gym-backend-8dou.onrender.com/api/attendance",
+                    {
+
+                      name:
+                        data.name,
+
+                      email:
+                        data.email,
+
+                    }
+                  );
+
+                  fetchAttendance();
+
+                  alert(
+                    "Attendance Marked Successfully"
+                  );
+
+                } catch (err) {
+
+                  console.log(err);
+
+                }
+
+              }
+
+              if (!!error) {
+
+                console.log(error);
+
+              }
+
+            }}
+
+            style={{
+              width: "100%"
+            }}
+
+          />
+
+        </div>
+
+        {scanResult && (
+
+          <div className="mt-6 bg-black p-5 rounded-xl">
+
+            <p className="text-green-500 text-xl">
+              QR Detected Successfully ✅
+            </p>
+
+          </div>
+
+        )}
+
+      </div>
+
+      {/* MANUAL FORM */}
+
       <form
         onSubmit={markAttendance}
         className="bg-gray-900 p-8 rounded-2xl mb-10"
       >
+
+        <h1 className="text-3xl font-bold mb-6 text-red-500">
+          Manual Attendance
+        </h1>
 
         <input
           type="text"
           placeholder="Member Name"
           value={name}
           onChange={(e) =>
-            setName(e.target.value)
+            setName(
+              e.target.value
+            )
           }
           className="w-full p-4 mb-5 rounded-xl bg-black outline-none"
         />
@@ -142,7 +264,9 @@ function AttendanceAdmin() {
           placeholder="Member Email"
           value={email}
           onChange={(e) =>
-            setEmail(e.target.value)
+            setEmail(
+              e.target.value
+            )
           }
           className="w-full p-4 mb-5 rounded-xl bg-black outline-none"
         />
@@ -155,8 +279,8 @@ function AttendanceAdmin() {
 
       </form>
 
-
       {/* LIST */}
+
       <div className="space-y-6">
 
         {attendance.map((item) => (
@@ -216,6 +340,7 @@ function AttendanceAdmin() {
     </div>
 
   );
+
 }
 
 export default AttendanceAdmin;
