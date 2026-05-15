@@ -9,6 +9,7 @@ function Register() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    mobile: "",
     password: "",
   });
 
@@ -38,7 +39,9 @@ function Register() {
 
     } catch (error) {
 
-      alert(error.response.data.message);
+      alert(
+        error.response?.data?.message || "Registration Failed"
+      );
 
     }
 
@@ -77,6 +80,14 @@ function Register() {
           />
 
           <input
+            type="text"
+            name="mobile"
+            placeholder="Enter Mobile Number"
+            onChange={handleChange}
+            className="w-full p-4 mb-5 rounded-xl bg-black text-white outline-none border border-gray-700"
+          />
+
+          <input
             type="password"
             name="password"
             placeholder="Enter Password"
@@ -110,6 +121,7 @@ function Register() {
     </div>
 
   );
+
 }
 
 export default Register;

@@ -16,7 +16,7 @@ function Login() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
+    emailOrMobile: "",
     password: "",
   });
 
@@ -87,8 +87,6 @@ function Login() {
 
       const user = result.user;
 
-      console.log(user);
-
       localStorage.setItem(
         "user",
         JSON.stringify(user)
@@ -131,9 +129,9 @@ function Login() {
         <form onSubmit={handleSubmit}>
 
           <input
-            type="email"
-            name="email"
-            placeholder="Enter Email"
+            type="text"
+            name="emailOrMobile"
+            placeholder="Enter Email or Mobile Number"
             onChange={handleChange}
             className="w-full p-4 mb-5 rounded-xl bg-black text-white outline-none border border-gray-700 focus:border-red-500 transition"
           />

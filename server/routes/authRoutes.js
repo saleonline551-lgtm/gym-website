@@ -13,27 +13,55 @@ router.post("/register", async (req, res) => {
 
   try {
 
-    const { name, email, password } = req.body;
+    const {
+      name,
+      email,
+      mobile,
+      password
+    } = req.body;
 
-    const userExists = await User.findOne({ email });
+    // CHECK EMAIL
 
-    if (userExists) {
+    const emailExists = await User.findOne({
+      email
+    });
+
+    if (emailExists) {
 
       return res.status(400).json({
-        message: "User already exists",
+        message: "Email already exists",
       });
 
     }
+
+    // CHECK MOBILE
+
+    const mobileExists = await User.findOne({
+      mobile
+    });
+
+    if (mobileExists) {
+
+      return res.status(400).json({
+        message: "Mobile number already exists",
+      });
+
+    }
+
+    // HASH PASSWORD
 
     const hashedPassword = await bcrypt.hash(
       password,
       10
     );
 
+    // CREATE USER
+
     const user = await User.create({
 
       name,
       email,
+      mobile,
       password: hashedPassword,
 
     });
@@ -46,6 +74,7 @@ router.post("/register", async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        mobile: user.mobile,
         role: user.role,
       },
 
@@ -68,17 +97,31 @@ router.post("/login", async (req, res) => {
 
   try {
 
-    const { email, password } = req.body;
+    const {
+      emailOrMobile,
+      password
+    } = req.body;
 
-    const user = await User.findOne({ email });
+    // FIND USER BY EMAIL OR MOBILE
+
+    const user = await User.findOne({
+
+      $or: [
+        { email: emailOrMobile },
+        { mobile: emailOrMobile }
+      ]
+
+    });
 
     if (!user) {
 
       return res.status(400).json({
-        message: "Invalid Email",
+        message: "Invalid Email or Mobile Number",
       });
 
     }
+
+    // CHECK PASSWORD
 
     const isMatch = await bcrypt.compare(
       password,
@@ -92,6 +135,8 @@ router.post("/login", async (req, res) => {
       });
 
     }
+
+    // TOKEN
 
     const token = jwt.sign(
 
@@ -117,6 +162,7 @@ router.post("/login", async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        mobile: user.mobile,
         role: user.role,
       },
 
