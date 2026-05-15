@@ -69,6 +69,14 @@ router.post("/", async (req, res) => {
 
         status: "active",
 
+        // DAILY WORKOUT
+
+        workoutPlan: "",
+
+        // DAILY DIET
+
+        dietPlan: "",
+
       });
 
     res.status(201).json({
@@ -131,6 +139,104 @@ router.get("/", async (req, res) => {
   }
 
 });
+
+
+// GET SINGLE CUSTOMER
+
+router.get(
+  "/customer/:email",
+
+  async (req, res) => {
+
+    try {
+
+      const customer =
+        await Membership.findOne({
+
+          email:
+            req.params.email,
+
+        });
+
+      if (!customer) {
+
+        return res.status(404).json({
+
+          message:
+            "Customer Not Found",
+
+        });
+
+      }
+
+      res.status(200).json(
+        customer
+      );
+
+    } catch (error) {
+
+      res.status(500).json({
+        message: error.message,
+      });
+
+    }
+
+  }
+);
+
+
+// UPDATE WORKOUT & DIET PLAN
+
+router.put(
+  "/update-plan/:id",
+
+  async (req, res) => {
+
+    try {
+
+      const {
+        workoutPlan,
+        dietPlan
+      } = req.body;
+
+      const membership =
+        await Membership.findByIdAndUpdate(
+
+          req.params.id,
+
+          {
+
+            workoutPlan,
+
+            dietPlan,
+
+          },
+
+          {
+            new: true,
+          }
+
+        );
+
+      res.status(200).json({
+
+        message:
+          "Workout & Diet Updated",
+
+        membership,
+
+      });
+
+    } catch (error) {
+
+      res.status(500).json({
+        message: error.message,
+      });
+
+    }
+
+  }
+);
 
 
 // RENEW MEMBERSHIP

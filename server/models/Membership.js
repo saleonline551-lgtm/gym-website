@@ -1,51 +1,63 @@
 const mongoose = require("mongoose");
 
-const membershipSchema = new mongoose.Schema({
+const membershipSchema =
+  new mongoose.Schema({
 
-  name: {
-    type: String,
-    required: true,
-  },
+    name: {
+      type: String,
+      required: true,
+    },
 
-  email: {
-    type: String,
-    required: true,
-  },
+    email: {
+      type: String,
+      required: true,
+    },
 
-  mobile: {
-    type: String,
-  },
+    plan: {
+      type: String,
+      required: true,
+    },
 
-  plan: {
-    type: String,
-    required: true,
-  },
+    trainer: {
+      type: String,
+    },
 
-  amount: {
-    type: Number,
-    default: 0,
-  },
+    status: {
+      type: String,
+      default: "Active",
+    },
 
-  startDate: {
-    type: Date,
-    default: Date.now,
-  },
+    joinDate: {
+      type: Date,
+      default: Date.now,
+    },
 
-  expiryDate: {
-    type: Date,
-    required: true,
-  },
+    expiryDate: {
+      type: Date,
+    },
 
-  status: {
-    type: String,
-    default: "active",
-  },
+    // DAILY WORKOUT
 
-}, {
-  timestamps: true,
-});
+    workoutPlan: {
+      type: String,
+      default: "",
+    },
 
-module.exports = mongoose.model(
-  "Membership",
-  membershipSchema
-);
+    // DAILY DIET
+
+    dietPlan: {
+      type: String,
+      default: "",
+    },
+
+  }, {
+
+    timestamps: true,
+
+  });
+
+module.exports =
+  mongoose.model(
+    "Membership",
+    membershipSchema
+  );
