@@ -5,30 +5,55 @@ const attendanceSchema =
 
     {
 
-      name: {
-        type: String,
+      userId: {
+
+        type:
+          mongoose.Schema.Types.ObjectId,
+
+        ref: "User",
+
         required: true,
+
+      },
+
+      name: {
+
+        type: String,
+
+        required: true,
+
       },
 
       email: {
+
         type: String,
+
         required: true,
+
       },
 
       status: {
+
         type: String,
+
         default: "Present",
+
       },
 
       date: {
+
         type: Date,
+
         default: Date.now,
+
       },
 
     },
 
     {
+
       timestamps: true,
+
     }
 
   );
