@@ -1,4 +1,8 @@
-import React from "react";
+import React, {
+  useEffect
+} from "react";
+
+import axios from "axios";
 
 import {
   useNavigate
@@ -12,6 +16,42 @@ function Success() {
 
   const navigate =
     useNavigate();
+
+  useEffect(() => {
+
+    const renewMembership =
+      async () => {
+
+        try {
+
+          const membership =
+            JSON.parse(
+              localStorage.getItem(
+                "membership"
+              )
+            );
+
+          if (!membership)
+            return;
+
+          // SAVE / RENEW MEMBERSHIP
+
+          await axios.post(
+            "https://gym-backend-8dou.onrender.com/api/membership",
+            membership
+          );
+
+        } catch (error) {
+
+          console.log(error);
+
+        }
+
+      };
+
+    renewMembership();
+
+  }, []);
 
   return (
 
