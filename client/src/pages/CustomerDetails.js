@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-use-before-define */
+
 import React, {
   useEffect,
   useState
@@ -27,13 +30,7 @@ function CustomerDetails() {
     setAttendance] =
     useState([]);
 
-  useEffect(() => {
-
-    fetchCustomer();
-
-    fetchAttendance();
-
-  }, [email, fetchCustomer, fetchAttendance]);
+  // FETCH CUSTOMER
 
   const fetchCustomer =
     async () => {
@@ -61,6 +58,8 @@ function CustomerDetails() {
 
     };
 
+  // FETCH ATTENDANCE
+
   const fetchAttendance =
     async () => {
 
@@ -82,6 +81,16 @@ function CustomerDetails() {
       }
 
     };
+
+  // USE EFFECT
+
+  useEffect(() => {
+
+    fetchCustomer();
+
+    fetchAttendance();
+
+  }, []);
 
   if (!customer) {
 
@@ -110,6 +119,8 @@ function CustomerDetails() {
         Back
       </button>
 
+      {/* CUSTOMER DETAILS */}
+
       <div className="bg-gray-900 p-10 rounded-2xl mb-10">
 
         <h1 className="text-5xl font-bold text-red-500 mb-10">
@@ -119,27 +130,37 @@ function CustomerDetails() {
         <div className="space-y-5 text-2xl">
 
           <p>
+
             <span className="text-red-500">
               Name:
             </span>{" "}
+
             {customer.name}
+
           </p>
 
           <p>
+
             <span className="text-red-500">
               Email:
             </span>{" "}
+
             {customer.email}
+
           </p>
 
           <p>
+
             <span className="text-red-500">
               Plan:
             </span>{" "}
+
             {customer.plan}
+
           </p>
 
           <p>
+
             <span className="text-red-500">
               Status:
             </span>{" "}
@@ -157,6 +178,7 @@ function CustomerDetails() {
           </p>
 
           <p>
+
             <span className="text-red-500">
               Join Date:
             </span>{" "}
@@ -170,6 +192,7 @@ function CustomerDetails() {
           </p>
 
           <p>
+
             <span className="text-red-500">
               Expiry Date:
             </span>{" "}
