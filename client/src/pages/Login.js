@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
 import {
-  signInWithRedirect,
-  getRedirectResult
+  signInWithPopup
 } from "firebase/auth";
 
 import {
@@ -20,39 +19,6 @@ function Login() {
     email: "",
     password: "",
   });
-
-  // GOOGLE REDIRECT RESULT
-
-  useEffect(() => {
-
-    getRedirectResult(auth)
-      .then((result) => {
-
-        if (result) {
-
-          const user = result.user;
-
-          localStorage.setItem(
-            "user",
-            JSON.stringify(user)
-          );
-
-          alert("Google Login Successful");
-
-          navigate("/dashboard");
-
-        }
-
-      })
-      .catch((error) => {
-
-        console.log(error);
-
-        alert(error.message);
-
-      });
-
-  }, [navigate]);
 
   const handleChange = (e) => {
 
@@ -114,10 +80,23 @@ function Login() {
 
     try {
 
-      await signInWithRedirect(
+      const result = await signInWithPopup(
         auth,
         provider
       );
+
+      const user = result.user;
+
+      console.log(user);
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+      );
+
+      alert("Google Login Successful");
+
+      navigate("/dashboard");
 
     } catch (error) {
 
