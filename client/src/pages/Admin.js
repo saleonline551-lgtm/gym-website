@@ -315,7 +315,7 @@ function Admin() {
                     className="bg-black p-6 rounded-2xl border border-gray-800 cursor-pointer hover:border-red-500 hover:scale-[1.01] transition duration-300"
                   >
 
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col md:flex-row justify-between gap-6 md:items-center">
 
                       <div>
 
@@ -327,14 +327,14 @@ function Admin() {
                           {member.email}
                         </p>
 
-                        <div className="mt-5 space-y-3">
+                        <div className="mt-5 flex flex-col gap-4">
 
-                          <p className="text-red-500 text-2xl">
+                          <p className="text-red-500 text-2xl font-bold">
                             {member.plan}
                           </p>
 
                           <span
-                            className={`px-4 py-2 rounded-lg font-bold ${
+                            className={`w-fit px-4 py-2 rounded-xl font-bold ${
                               new Date(
                                 member.expiryDate
                               ) > new Date()
@@ -356,32 +356,6 @@ function Admin() {
                             }
 
                           </span>
-
-                          <p className="text-gray-400">
-
-                            Join:
-                            {" "}
-
-                            {
-                              new Date(
-                                member.joinDate
-                              ).toLocaleDateString()
-                            }
-
-                          </p>
-
-                          <p className="text-gray-400">
-
-                            Expiry:
-                            {" "}
-
-                            {
-                              new Date(
-                                member.expiryDate
-                              ).toLocaleDateString()
-                            }
-
-                          </p>
 
                         </div>
 
