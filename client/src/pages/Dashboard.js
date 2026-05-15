@@ -5,7 +5,7 @@ import React, {
 } from "react";
 
 import axios from "axios";
-
+import QRCode from "react-qr-code";
 import {
   useNavigate
 } from "react-router-dom";
@@ -321,6 +321,43 @@ function Dashboard() {
 
       </div>
 
+{/* USER QR CODE */}
+
+<div className="bg-gray-900 p-8 rounded-2xl mb-10">
+
+  <h1 className="text-4xl font-bold mb-8 text-red-500">
+    Gym Entry QR
+  </h1>
+
+  <div className="flex flex-col items-center">
+
+    <div className="bg-white p-6 rounded-2xl">
+
+      <QRCode
+        value={JSON.stringify({
+
+          name: user?.name,
+
+          email: user?.email,
+
+          membership:
+            myMembership?.plan ||
+
+            "No Membership",
+
+        })}
+        size={220}
+      />
+
+    </div>
+
+    <p className="text-gray-400 mt-6 text-center text-xl">
+      Show this QR code at gym entry for attendance scanning.
+    </p>
+
+  </div>
+
+</div>
 
       {/* MEMBERSHIP */}
       {myMembership && (
