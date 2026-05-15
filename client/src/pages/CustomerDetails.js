@@ -121,93 +121,109 @@ function CustomerDetails() {
 
       {/* CUSTOMER DETAILS */}
 
-      <div className="bg-gray-900 p-10 rounded-2xl mb-10">
+      <div className="bg-gray-900 p-10 rounded-3xl mb-10 border border-gray-800">
 
-        <h1 className="text-5xl font-bold text-red-500 mb-10">
-          Customer Details
-        </h1>
+  {/* TOP BAR */}
 
-        <div className="space-y-5 text-2xl">
+  <div className="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-10">
 
-          <p>
+    <div>
 
-            <span className="text-red-500">
-              Name:
-            </span>{" "}
+      <h1 className="text-5xl font-bold text-red-500">
+        Customer Profile
+      </h1>
 
-            {customer.name}
+      <p className="text-gray-400 mt-3 text-lg">
+        Complete customer analytics & activity
+      </p>
 
-          </p>
+    </div>
 
-          <p>
+    <div className="flex gap-4">
 
-            <span className="text-red-500">
-              Email:
-            </span>{" "}
+      <span
+        className={`px-6 py-3 rounded-2xl font-bold text-lg ${
+          new Date(
+            customer.expiryDate
+          ) > new Date()
 
-            {customer.email}
+            ? "bg-green-500 text-black"
 
-          </p>
+            : "bg-red-500 text-white"
+        }`}
+      >
 
-          <p>
+        {
+          new Date(
+            customer.expiryDate
+          ) > new Date()
 
-            <span className="text-red-500">
-              Plan:
-            </span>{" "}
+            ? "ACTIVE"
 
-            {customer.plan}
+            : "EXPIRED"
+        }
 
-          </p>
+      </span>
 
-          <p>
+    </div>
 
-            <span className="text-red-500">
-              Status:
-            </span>{" "}
+  </div>
 
-            {
-              new Date(
-                customer.expiryDate
-              ) > new Date()
+  {/* CUSTOMER INFO GRID */}
 
-                ? "Active"
+  <div className="grid md:grid-cols-2 gap-8">
 
-                : "Expired"
-            }
+    <div className="bg-black p-6 rounded-2xl border border-gray-800">
 
-          </p>
+      <p className="text-gray-400 text-lg">
+        Customer Name
+      </p>
 
-          <p>
+      <h1 className="text-3xl font-bold mt-2">
+        {customer.name}
+      </h1>
 
-            <span className="text-red-500">
-              Join Date:
-            </span>{" "}
+    </div>
 
-            {
-              new Date(
-                customer.joinDate
-              ).toLocaleDateString()
-            }
+    <div className="bg-black p-6 rounded-2xl border border-gray-800">
 
-          </p>
+      <p className="text-gray-400 text-lg">
+        Email Address
+      </p>
 
-          <p>
+      <h1 className="text-2xl font-bold mt-2 break-all">
+        {customer.email}
+      </h1>
 
-            <span className="text-red-500">
-              Expiry Date:
-            </span>{" "}
+    </div>
 
-            {
-              new Date(
-                customer.expiryDate
-              ).toLocaleDateString()
-            }
+    <div className="bg-black p-6 rounded-2xl border border-gray-800">
 
-          </p>
+      <p className="text-gray-400 text-lg">
+        Membership Plan
+      </p>
 
-        </div>
+      <h1 className="text-3xl font-bold text-red-500 mt-2">
+        {customer.plan}
+      </h1>
 
-      </div>
+    </div>
+
+    <div className="bg-black p-6 rounded-2xl border border-gray-800">
+
+      <p className="text-gray-400 text-lg">
+        Attendance Records
+      </p>
+
+      <h1 className="text-3xl font-bold mt-2">
+        {attendance.length}
+      </h1>
+
+    </div>
+
+  </div>
+
+</div>
 
       {/* ATTENDANCE */}
 
