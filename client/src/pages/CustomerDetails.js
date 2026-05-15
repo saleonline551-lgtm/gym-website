@@ -33,7 +33,7 @@ function CustomerDetails() {
 
     fetchAttendance();
 
-  }, []);
+  }, [email]);
 
   const fetchCustomer =
     async () => {
