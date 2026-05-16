@@ -45,6 +45,11 @@ import CustomerDetails from "./pages/CustomerDetails";
 import AdminRoute from "./components/AdminRoute";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import MembershipPlanAdmin from "./pages/MembershipPlanAdmin";
+
+import TestimonialAdmin from "./pages/TestimonialAdmin";
+
+import AboutGymAdmin from "./pages/AboutGymAdmin";
 
 function App() {
 
@@ -174,6 +179,33 @@ function App() {
             </AdminRoute>
           }
         />
+
+<Route
+  path="/membership-plan-admin"
+  element={
+    <AdminRoute>
+      <MembershipPlanAdmin />
+    </AdminRoute>
+  }
+/>
+
+<Route
+  path="/testimonial-admin"
+  element={
+    <AdminRoute>
+      <TestimonialAdmin />
+    </AdminRoute>
+  }
+/>
+
+<Route
+  path="/about-gym-admin"
+  element={
+    <AdminRoute>
+      <AboutGymAdmin />
+    </AdminRoute>
+  }
+/>
 
         {/* CUSTOMER DETAILS */}
 
