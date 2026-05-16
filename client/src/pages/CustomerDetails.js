@@ -110,6 +110,68 @@ function CustomerDetails() {
 
   }
 
+  const updateWorkout =
+  async () => {
+
+    try {
+
+      await axios.put(
+
+        `https://gym-backend-8dou.onrender.com/api/membership/update-plan/${customer._id}`,
+
+        {
+          workoutPlan:
+            customer.workoutPlan,
+
+          dietPlan:
+            customer.dietPlan,
+        }
+
+      );
+
+      alert(
+        "Workout Updated Successfully"
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+const updateDiet =
+  async () => {
+
+    try {
+
+      await axios.put(
+
+        `https://gym-backend-8dou.onrender.com/api/membership/update-plan/${customer._id}`,
+
+        {
+          workoutPlan:
+            customer.workoutPlan,
+
+          dietPlan:
+            customer.dietPlan,
+        }
+
+      );
+
+      alert(
+        "Diet Updated Successfully"
+      );
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
   return (
 
     <div className="min-h-screen bg-black text-white p-10">
@@ -241,51 +303,91 @@ function CustomerDetails() {
 
       {/* DAILY WORKOUT */}
 
-      <div className="bg-gray-900 p-10 rounded-3xl mb-10 border border-gray-800">
+      {/* DAILY WORKOUT */}
 
-        <h1 className="text-4xl font-bold text-red-500 mb-8">
-          Daily Workout
-        </h1>
+<div className="bg-gray-900 p-10 rounded-3xl mb-10 border border-gray-800">
 
-        <div className="bg-black p-8 rounded-2xl border border-gray-800">
+  <h1 className="text-4xl font-bold text-red-500 mb-8">
+    Daily Workout
+  </h1>
 
-          <h1 className="text-2xl font-bold leading-10">
+  <textarea
 
-            {
-              customer.workoutPlan
-                ? customer.workoutPlan
-                : "No Workout Assigned"
-            }
+    value={customer.workoutPlan}
 
-          </h1>
+    onChange={(e) =>
+      setCustomer({
 
-        </div>
+        ...customer,
 
-      </div>
+        workoutPlan:
+          e.target.value,
+
+      })
+    }
+
+    className="w-full bg-black p-8 rounded-2xl border border-gray-800 outline-none text-white text-xl"
+
+    rows="6"
+
+    placeholder="Enter Workout Plan..."
+
+  />
+
+  <button
+
+    onClick={updateWorkout}
+
+    className="bg-red-500 hover:bg-red-700 transition px-8 py-4 rounded-2xl text-xl font-bold mt-6"
+  >
+    Update Workout
+  </button>
+
+</div>
 
       {/* DAILY DIET */}
 
-      <div className="bg-gray-900 p-10 rounded-3xl mb-10 border border-gray-800">
+      {/* DAILY DIET */}
 
-        <h1 className="text-4xl font-bold text-red-500 mb-8">
-          Daily Diet
-        </h1>
+<div className="bg-gray-900 p-10 rounded-3xl mb-10 border border-gray-800">
 
-        <div className="bg-black p-8 rounded-2xl border border-gray-800">
+  <h1 className="text-4xl font-bold text-red-500 mb-8">
+    Daily Diet
+  </h1>
 
-          <h1 className="text-2xl font-bold leading-10">
+  <textarea
 
-            {
-              customer.dietPlan
-                ? customer.dietPlan
-                : "No Diet Assigned"
-            }
+    value={customer.dietPlan}
 
-          </h1>
+    onChange={(e) =>
+      setCustomer({
 
-        </div>
+        ...customer,
 
-      </div>
+        dietPlan:
+          e.target.value,
+
+      })
+    }
+
+    className="w-full bg-black p-8 rounded-2xl border border-gray-800 outline-none text-white text-xl"
+
+    rows="6"
+
+    placeholder="Enter Diet Plan..."
+
+  />
+
+  <button
+
+    onClick={updateDiet}
+
+    className="bg-red-500 hover:bg-red-700 transition px-8 py-4 rounded-2xl text-xl font-bold mt-6"
+  >
+    Update Diet
+  </button>
+
+</div>
 
       {/* ATTENDANCE HISTORY */}
 
