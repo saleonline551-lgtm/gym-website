@@ -428,6 +428,122 @@ function Dashboard() {
 
       )}
 
+{/* MEMBERSHIP */}
+{myMembership && (
+
+  <div className="bg-gray-900 p-8 rounded-2xl mb-10">
+
+    <h1 className="text-4xl font-bold mb-6">
+      Membership Details
+    </h1>
+
+    <div className="space-y-4">
+
+      <p className="text-2xl">
+        <span className="text-red-500">
+          Plan:
+        </span>{" "}
+        {myMembership.plan}
+      </p>
+
+      <p className="text-2xl">
+        <span className="text-red-500">
+          Remaining Days:
+        </span>{" "}
+
+        {
+          isNaN(remainingDays)
+            ? "No Expiry"
+            : remainingDays
+        }
+
+      </p>
+
+      <p className="text-2xl">
+        <span className="text-red-500">
+          Join Date:
+        </span>{" "}
+
+        {
+          myMembership.startDate
+            ? new Date(
+                myMembership.startDate
+              ).toLocaleDateString()
+            : "N/A"
+        }
+
+      </p>
+
+      <p className="text-2xl">
+        <span className="text-red-500">
+          Expiry Date:
+        </span>{" "}
+
+        {
+          myMembership.expiryDate
+            ? new Date(
+                myMembership.expiryDate
+              ).toLocaleDateString()
+            : "N/A"
+        }
+
+      </p>
+
+    </div>
+
+  </div>
+
+)}
+
+
+{/* DAILY WORKOUT */}
+
+<div className="bg-gray-900 p-8 rounded-2xl mb-10">
+
+  <h1 className="text-4xl font-bold mb-6 text-red-500">
+    Daily Workout
+  </h1>
+
+  <div className="bg-black p-6 rounded-2xl border border-gray-800">
+
+    <p className="text-2xl font-semibold">
+
+      {
+        myMembership?.workoutPlan ||
+
+        "No Workout Assigned"
+      }
+
+    </p>
+
+  </div>
+
+</div>
+
+
+{/* DAILY DIET */}
+
+<div className="bg-gray-900 p-8 rounded-2xl mb-10">
+
+  <h1 className="text-4xl font-bold mb-6 text-red-500">
+    Daily Diet
+  </h1>
+
+  <div className="bg-black p-6 rounded-2xl border border-gray-800">
+
+    <p className="text-2xl font-semibold">
+
+      {
+        myMembership?.dietPlan ||
+
+        "No Diet Assigned"
+      }
+
+    </p>
+
+  </div>
+
+</div>
 
       {/* STATS */}
       <div className="grid md:grid-cols-4 gap-8 mb-12">
