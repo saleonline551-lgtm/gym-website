@@ -332,9 +332,9 @@ function Dashboard() {
 
     {/* QR CODE */}
 
-    <div className="bg-black p-8 rounded-3xl border border-gray-800 text-center">
+    <div className="bg-black p-6 rounded-3xl border border-gray-800 text-center w-[300px]">
 
-      <h1 className="text-3xl font-bold mb-6 text-red-500">
+      <h1 className="text-2xl font-bold mb-4 text-red-500">
         Gym Entry QR
       </h1>
 
@@ -355,7 +355,7 @@ function Dashboard() {
 
           })}
 
-          size={220}
+          size={170}
 
         />
 
