@@ -281,172 +281,84 @@ function Dashboard() {
       )}
 
 
-      {/* PROFILE CARD */}
+  
       {/* PROFILE CARD + QR */}
 
-<div className="bg-gray-900 p-10 rounded-3xl mb-10">
+{/* USER PROFILE + MEMBERSHIP + QR */}
 
-  <div className="flex flex-col lg:flex-row justify-between items-center gap-10">
+<div className="grid lg:grid-cols-3 gap-8 mb-10">
 
-    {/* USER INFO */}
+  {/* USER PROFILE */}
 
-    <div className="flex-1 w-full">
+  <div className="bg-gray-900 p-8 rounded-3xl">
 
-      <h1 className="text-5xl font-bold mb-8">
-        User Profile
-      </h1>
+    <h1 className="text-5xl font-bold mb-8">
+      User Profile
+    </h1>
 
-      <div className="space-y-5">
+    <div className="space-y-6">
 
-        <p className="text-2xl">
-          <span className="text-red-500">
-            Name:
-          </span>{" "}
-          {user?.name}
-        </p>
+      <p className="text-3xl">
 
-        <p className="text-2xl">
-          <span className="text-red-500">
-            Email:
-          </span>{" "}
-          {user?.email}
-        </p>
+        <span className="text-red-500">
+          Name:
+        </span>{" "}
 
-        <p className="text-2xl">
-          <span className="text-red-500">
-            Status:
-          </span>{" "}
+        {user?.name}
 
-          {
-            remainingDays > 0
-              ? "Active Member"
-              : "Expired"
-          }
+      </p>
 
-        </p>
+      <p className="text-3xl">
 
-      </div>
+        <span className="text-red-500">
+          Email:
+        </span>{" "}
 
-    </div>
+        {user?.email}
 
+      </p>
 
-    {/* QR CODE */}
+      <p className="text-3xl">
 
-    <div className="bg-black p-6 rounded-3xl border border-gray-800 w-[300px] flex flex-col items-center justify-center">
+        <span className="text-red-500">
+          Status:
+        </span>{" "}
 
-      <h1 className="text-2xl font-bold mb-4 text-red-500">
-        Gym Entry QR
-      </h1>
+        {
+          remainingDays > 0
+            ? "Active"
+            : "Expired"
+        }
 
-      <div className="bg-white p-5 rounded-2xl flex justify-center items-center">
-
-        <QRCode
-
-          value={JSON.stringify({
-
-            name: user?.name,
-
-            email: user?.email,
-
-            membership:
-              myMembership?.plan ||
-
-              "No Membership",
-
-          })}
-
-          size={170}
-
-        />
-
-      </div>
-
-      <p className="text-gray-400 mt-5 text-lg text-center">
-        Scan For Attendance
       </p>
 
     </div>
 
   </div>
 
-</div>
 
-      {/* MEMBERSHIP */}
-      {myMembership && (
+  {/* MEMBERSHIP DETAILS */}
 
-        <div className="bg-gray-900 p-8 rounded-2xl mb-10">
+  <div className="bg-gray-900 p-8 rounded-3xl">
 
-          <h1 className="text-4xl font-bold mb-6">
-            Membership Details
-          </h1>
-
-          <div className="space-y-4">
-
-            <p className="text-2xl">
-              <span className="text-red-500">
-                Plan:
-              </span>{" "}
-              {myMembership.plan}
-            </p>
-
-            <p className="text-2xl">
-              <span className="text-red-500">
-                Remaining Days:
-              </span>{" "}
-              {remainingDays}
-            </p>
-
-            <p className="text-2xl">
-              <span className="text-red-500">
-                Join Date:
-              </span>{" "}
-
-              {
-                new Date(
-                  myMembership.joinDate
-                ).toLocaleDateString()
-              }
-
-            </p>
-
-            <p className="text-2xl">
-              <span className="text-red-500">
-                Expiry Date:
-              </span>{" "}
-
-              {
-                new Date(
-                  myMembership.expiryDate
-                ).toLocaleDateString()
-              }
-
-            </p>
-
-          </div>
-
-        </div>
-
-      )}
-
-{/* MEMBERSHIP */}
-{myMembership && (
-
-  <div className="bg-gray-900 p-8 rounded-2xl mb-10">
-
-    <h1 className="text-4xl font-bold mb-6">
+    <h1 className="text-5xl font-bold mb-8">
       Membership Details
     </h1>
 
-    <div className="space-y-4">
+    <div className="space-y-6">
 
-      <p className="text-2xl">
+      <p className="text-3xl">
+
         <span className="text-red-500">
           Plan:
         </span>{" "}
-        {myMembership.plan}
+
+        {myMembership?.plan}
+
       </p>
 
-      <p className="text-2xl">
+      <p className="text-3xl">
+
         <span className="text-red-500">
           Remaining Days:
         </span>{" "}
@@ -459,13 +371,14 @@ function Dashboard() {
 
       </p>
 
-      <p className="text-2xl">
+      <p className="text-3xl">
+
         <span className="text-red-500">
           Join Date:
         </span>{" "}
 
         {
-          myMembership.startDate
+          myMembership?.startDate
             ? new Date(
                 myMembership.startDate
               ).toLocaleDateString()
@@ -474,13 +387,14 @@ function Dashboard() {
 
       </p>
 
-      <p className="text-2xl">
+      <p className="text-3xl">
+
         <span className="text-red-500">
           Expiry Date:
         </span>{" "}
 
         {
-          myMembership.expiryDate
+          myMembership?.expiryDate
             ? new Date(
                 myMembership.expiryDate
               ).toLocaleDateString()
@@ -493,8 +407,40 @@ function Dashboard() {
 
   </div>
 
-)}
 
+  {/* QR CODE */}
+
+  <div className="bg-black border border-red-500 p-8 rounded-3xl flex flex-col justify-center items-center">
+
+    <h1 className="text-4xl font-bold text-red-500 mb-6">
+      Gym Entry QR
+    </h1>
+
+    <div className="bg-white p-4 rounded-2xl">
+
+      <QRCode
+
+        value={JSON.stringify({
+
+          name: user?.name,
+
+          email: user?.email,
+
+        })}
+
+        size={180}
+
+      />
+
+    </div>
+
+    <p className="text-gray-400 mt-5 text-center text-xl">
+      Scan For Attendance
+    </p>
+
+  </div>
+
+</div>
 
 {/* DAILY WORKOUT */}
 
