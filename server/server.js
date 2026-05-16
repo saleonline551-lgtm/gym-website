@@ -1,8 +1,13 @@
 const express = require("express");
+
 const cors = require("cors");
+
 const mongoose = require("mongoose");
 
 require("dotenv").config();
+
+
+// ROUTES
 
 const authRoutes =
 require("./routes/authRoutes");
@@ -31,13 +36,31 @@ require("./routes/contactRoutes");
 const workoutRoutes =
 require("./routes/workoutRoutes");
 
+
+// NEW CMS ROUTES
+
+const membershipPlanRoutes =
+require("./routes/membershipPlanRoutes");
+
+const testimonialRoutes =
+require("./routes/testimonialRoutes");
+
+const aboutGymRoutes =
+require("./routes/aboutGymRoutes");
+
+
 const app = express();
 
+
+// MIDDLEWARE
+
 app.use(cors());
+
 app.use(express.json());
 
 
-// ROUTES
+// API ROUTES
+
 app.use(
   "/api/auth",
   authRoutes
@@ -84,34 +107,67 @@ app.use(
 );
 
 
+// NEW DYNAMIC CMS ROUTES
+
+app.use(
+  "/api/membership-plans",
+  membershipPlanRoutes
+);
+
+app.use(
+  "/api/testimonials",
+  testimonialRoutes
+);
+
+app.use(
+  "/api/about-gym",
+  aboutGymRoutes
+);
+
+
 // DATABASE
-mongoose.connect(process.env.MONGO_URI)
+
+mongoose.connect(
+  process.env.MONGO_URI
+)
 
 .then(() =>
-  console.log("MongoDB Connected")
+
+  console.log(
+    "MongoDB Connected"
+  )
+
 )
 
 .catch((err) =>
+
   console.log(err)
+
 );
 
 
 // TEST ROUTE
+
 app.get("/", (req, res) => {
 
-  res.send("Gym API Running");
+  res.send(
+    "Gym API Running"
+  );
 
 });
 
 
 // SERVER
+
 const PORT =
 process.env.PORT || 5000;
 
 app.listen(PORT, () => {
 
   console.log(
+
     `Server running on ${PORT}`
+
   );
 
 });
