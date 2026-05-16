@@ -39,16 +39,22 @@ const membershipSchema =
     // DAILY WORKOUT
 
     workoutPlan: {
-      type: String,
-      default: "",
-    },
+  type: String,
+  default: "",
+},
 
-    // DAILY DIET
+dietPlan: {
+  type: String,
+  default: "",
+},
 
-    dietPlan: {
-      type: String,
-      default: "",
-    },
+workoutUpdatedAt: {
+  type: Date,
+},
+
+dietUpdatedAt: {
+  type: Date,
+},
 
   }, {
 
@@ -61,3 +67,5 @@ module.exports =
     "Membership",
     membershipSchema
   );
+
+  

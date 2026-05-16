@@ -77,6 +77,12 @@ router.post("/", async (req, res) => {
 
         dietPlan: "",
 
+        // UPDATE DATES
+
+        workoutUpdatedAt: null,
+
+        dietUpdatedAt: null,
+
       });
 
     res.status(201).json({
@@ -119,6 +125,10 @@ router.get("/", async (req, res) => {
         ) {
 
           m.status = "expired";
+
+        } else {
+
+          m.status = "active";
 
         }
 
@@ -209,6 +219,14 @@ router.put(
             workoutPlan,
 
             dietPlan,
+
+            // SAVE UPDATE DATE
+
+            workoutUpdatedAt:
+              new Date(),
+
+            dietUpdatedAt:
+              new Date(),
 
           },
 

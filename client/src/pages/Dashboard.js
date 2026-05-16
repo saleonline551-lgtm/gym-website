@@ -504,19 +504,33 @@ function Dashboard() {
     Daily Workout
   </h1>
 
-  <div className="bg-black p-6 rounded-2xl border border-gray-800">
+  <div>
 
-    <p className="text-2xl font-semibold">
+  <p className="text-2xl font-semibold">
 
-      {
-        myMembership?.workoutPlan ||
+    {
+      myMembership?.workoutPlan ||
+      "No Workout Assigned"
+    }
 
-        "No Workout Assigned"
-      }
+  </p>
 
-    </p>
+  <p className="text-gray-400 mt-3">
 
-  </div>
+    Updated On:
+    {" "}
+
+    {
+      myMembership?.workoutUpdatedAt
+        ? new Date(
+            myMembership.workoutUpdatedAt
+          ).toLocaleDateString()
+        : "Not Updated"
+    }
+
+  </p>
+
+</div>
 
 </div>
 
@@ -529,19 +543,33 @@ function Dashboard() {
     Daily Diet
   </h1>
 
-  <div className="bg-black p-6 rounded-2xl border border-gray-800">
+  <div>
 
-    <p className="text-2xl font-semibold">
+  <p className="text-2xl font-semibold">
 
-      {
-        myMembership?.dietPlan ||
+    {
+      myMembership?.dietPlan ||
+      "No Diet Assigned"
+    }
 
-        "No Diet Assigned"
-      }
+  </p>
 
-    </p>
+  <p className="text-gray-400 mt-3">
 
-  </div>
+    Updated On:
+    {" "}
+
+    {
+      myMembership?.dietUpdatedAt
+        ? new Date(
+            myMembership.dietUpdatedAt
+          ).toLocaleDateString()
+        : "Not Updated"
+    }
+
+  </p>
+
+</div>
 
 </div>
 
