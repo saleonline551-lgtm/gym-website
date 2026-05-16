@@ -1,10 +1,48 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState
+} from "react";
+
+import axios from "axios";
 
 function About() {
+
+  const [about,
+    setAbout] =
+    useState(null);
+
+  useEffect(() => {
+
+    fetchAbout();
+
+  }, []);
+
+  const fetchAbout =
+    async () => {
+
+      try {
+
+        const res =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/about-gym"
+          );
+
+        setAbout(res.data);
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
+
   return (
+
     <div
-    id="about"
-     className="bg-black text-white py-20 px-10">
+      id="about"
+      className="bg-black text-white py-20 px-10"
+    >
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
 
@@ -17,13 +55,22 @@ function About() {
         <div>
 
           <h1 className="text-5xl font-bold mb-6">
-            About Our Gym
+
+            {
+              about?.title ||
+              "About Our Gym"
+            }
+
           </h1>
 
           <p className="text-gray-300 text-lg leading-8">
-            We provide world class fitness training with
-            expert trainers and modern equipment.
-            Achieve your dream physique with us.
+
+            {
+              about?.description ||
+
+              "We provide world class fitness training with expert trainers and modern equipment. Achieve your dream physique with us."
+            }
+
           </p>
 
           <button className="mt-8 bg-red-500 px-6 py-3 rounded-lg hover:bg-red-600">
@@ -35,7 +82,9 @@ function About() {
       </div>
 
     </div>
+
   );
+
 }
 
 export default About;

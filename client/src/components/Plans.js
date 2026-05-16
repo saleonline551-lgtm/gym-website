@@ -1,4 +1,9 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState
+} from "react";
+
+import axios from "axios";
 
 import { motion } from "framer-motion";
 
@@ -6,24 +11,35 @@ import { Link } from "react-router-dom";
 
 function Plans() {
 
-  const plans = [
+  const [plans,
+    setPlans] =
+    useState([]);
 
-    {
-      name: "Basic",
-      price: "₹999",
-    },
+  useEffect(() => {
 
-    {
-      name: "Standard",
-      price: "₹1999",
-    },
+    fetchPlans();
 
-    {
-      name: "Premium",
-      price: "₹2999",
-    },
+  }, []);
 
-  ];
+  const fetchPlans =
+    async () => {
+
+      try {
+
+        const res =
+          await axios.get(
+            "https://gym-backend-8dou.onrender.com/api/membership-plans"
+          );
+
+        setPlans(res.data);
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
 
   return (
 
@@ -62,18 +78,30 @@ function Plans() {
           >
 
             <h2 className="text-3xl font-bold mb-4">
-              {plan.name}
+              {plan.title}
             </h2>
 
             <h1 className="text-5xl text-red-500 mb-6">
-              {plan.price}
+              ₹{plan.price}
             </h1>
 
             <p className="text-gray-400 mb-8 leading-7">
-              Full access to gym, cardio,
-              trainers, workout sessions
-              and premium equipment.
+              {plan.duration}
             </p>
+
+            <div className="space-y-3 mb-8">
+
+              {plan.features?.map(
+                (feature, i) => (
+
+                  <p key={i}>
+                    ✅ {feature}
+                  </p>
+
+                )
+              )}
+
+            </div>
 
             <Link
               to="/login"
