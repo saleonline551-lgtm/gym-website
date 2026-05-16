@@ -282,78 +282,90 @@ function Dashboard() {
 
 
       {/* PROFILE CARD */}
-      <div className="bg-gray-900 p-8 rounded-2xl mb-10">
+      {/* PROFILE CARD + QR */}
 
-        <h1 className="text-4xl font-bold mb-6">
-          User Profile
-        </h1>
+<div className="bg-gray-900 p-10 rounded-3xl mb-10">
 
-        <div className="space-y-4">
+  <div className="flex flex-col lg:flex-row justify-between items-center gap-10">
 
-          <p className="text-2xl">
-            <span className="text-red-500">
-              Name:
-            </span>{" "}
-            {user?.name}
-          </p>
+    {/* USER INFO */}
 
-          <p className="text-2xl">
-            <span className="text-red-500">
-              Email:
-            </span>{" "}
-            {user?.email}
-          </p>
+    <div className="flex-1 w-full">
 
-          <p className="text-2xl">
-            <span className="text-red-500">
-              Status:
-            </span>{" "}
+      <h1 className="text-5xl font-bold mb-8">
+        User Profile
+      </h1>
 
-            {
-              remainingDays > 0
-                ? "Active Member"
-                : "Expired"
-            }
+      <div className="space-y-5">
 
-          </p>
+        <p className="text-2xl">
+          <span className="text-red-500">
+            Name:
+          </span>{" "}
+          {user?.name}
+        </p>
 
-        </div>
+        <p className="text-2xl">
+          <span className="text-red-500">
+            Email:
+          </span>{" "}
+          {user?.email}
+        </p>
+
+        <p className="text-2xl">
+          <span className="text-red-500">
+            Status:
+          </span>{" "}
+
+          {
+            remainingDays > 0
+              ? "Active Member"
+              : "Expired"
+          }
+
+        </p>
 
       </div>
 
-{/* USER QR CODE */}
-
-<div className="bg-gray-900 p-8 rounded-2xl mb-10">
-
-  <h1 className="text-4xl font-bold mb-8 text-red-500">
-    Gym Entry QR
-  </h1>
-
-  <div className="flex flex-col items-center">
-
-    <div className="bg-white p-6 rounded-2xl">
-
-      <QRCode
-        value={JSON.stringify({
-
-          name: user?.name,
-
-          email: user?.email,
-
-          membership:
-            myMembership?.plan ||
-
-            "No Membership",
-
-        })}
-        size={220}
-      />
-
     </div>
 
-    <p className="text-gray-400 mt-6 text-center text-xl">
-      Show this QR code at gym entry for attendance scanning.
-    </p>
+
+    {/* QR CODE */}
+
+    <div className="bg-black p-8 rounded-3xl border border-gray-800 text-center">
+
+      <h1 className="text-3xl font-bold mb-6 text-red-500">
+        Gym Entry QR
+      </h1>
+
+      <div className="bg-white p-5 rounded-2xl">
+
+        <QRCode
+
+          value={JSON.stringify({
+
+            name: user?.name,
+
+            email: user?.email,
+
+            membership:
+              myMembership?.plan ||
+
+              "No Membership",
+
+          })}
+
+          size={220}
+
+        />
+
+      </div>
+
+      <p className="text-gray-400 mt-5 text-lg">
+        Scan For Attendance
+      </p>
+
+    </div>
 
   </div>
 
