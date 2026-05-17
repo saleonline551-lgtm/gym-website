@@ -41,7 +41,7 @@ function About() {
 
     <section
       id="about"
-      className="bg-black text-white py-20 px-10 min-h-screen scroll-mt-28"
+      className="bg-black text-white py-20 px-10 scroll-mt-32"
     >
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">

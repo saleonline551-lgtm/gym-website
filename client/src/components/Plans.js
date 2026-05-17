@@ -45,7 +45,7 @@ function Plans() {
 
     <section
       id="plans"
-      className="bg-gray-950 text-white py-20 px-10 min-h-screen scroll-mt-28"
+      className="bg-gray-950 text-white py-20 px-10 scroll-mt-32"
     >
 
       <h1 className="text-5xl font-bold text-center mb-16">
