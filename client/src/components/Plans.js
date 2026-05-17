@@ -45,7 +45,8 @@ function Plans() {
 
     <section
       id="plans"
-      className="bg-gray-950 text-white py-20 px-10 scroll-mt-32"
+      data-aos="fade-up"
+      className="bg-gray-950 text-white py-20 px-10"
     >
 
       <h1 className="text-5xl font-bold text-center mb-16">
