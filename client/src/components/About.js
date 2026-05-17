@@ -39,9 +39,9 @@ function About() {
 
   return (
 
-    <div
+    <section
       id="about"
-      className="bg-black text-white py-20 px-10 scroll-mt-28"
+      className="bg-black text-white py-20 px-10 min-h-screen scroll-mt-28"
     >
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
@@ -49,7 +49,7 @@ function About() {
         <img
           src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48"
           alt=""
-          className="rounded-2xl"
+          className="rounded-2xl w-full"
         />
 
         <div>
@@ -81,7 +81,7 @@ function About() {
 
       </div>
 
-    </div>
+    </section>
 
   );
 

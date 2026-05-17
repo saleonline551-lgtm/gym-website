@@ -43,10 +43,9 @@ function Plans() {
 
   return (
 
-    <div
+    <section
       id="plans"
-      data-aos="fade-up"
-      className="bg-gray-950 text-white py-20 px-10 scroll-mt-28"
+      className="bg-gray-950 text-white py-20 px-10 min-h-screen scroll-mt-28"
     >
 
       <h1 className="text-5xl font-bold text-center mb-16">
@@ -55,11 +54,43 @@ function Plans() {
 
       <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
 
-        {plans.map((plan, index) => (
+        {(plans.length > 0
+          ? plans
+          : [
+              {
+                title: "Basic",
+                price: "999",
+                duration: "1 Month",
+                features: [
+                  "Gym Access",
+                  "Cardio",
+                  "Locker"
+                ]
+              },
+              {
+                title: "Standard",
+                price: "1999",
+                duration: "3 Months",
+                features: [
+                  "Trainer Support",
+                  "Diet Plan",
+                  "Workout Plan"
+                ]
+              },
+              {
+                title: "Premium",
+                price: "2999",
+                duration: "6 Months",
+                features: [
+                  "Personal Trainer",
+                  "Premium Equipment",
+                  "Full Access"
+                ]
+              }
+            ]).map((plan, index) => (
 
           <motion.div
             key={index}
-            data-aos="zoom-in"
             initial={{
               opacity: 0,
               y: 80
@@ -116,7 +147,7 @@ function Plans() {
 
       </div>
 
-    </div>
+    </section>
 
   );
 
