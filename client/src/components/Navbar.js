@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-scroll";
+
 import { FaBars, FaTimes } from "react-icons/fa";
+
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
@@ -10,6 +11,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   return (
+
     <nav className="fixed top-0 w-full bg-black text-white px-10 py-5 z-50">
 
       <div className="flex justify-between items-center">
@@ -19,66 +21,58 @@ function Navbar() {
         </h1>
 
         {/* Desktop Menu */}
+
         <ul className="hidden md:flex gap-8 text-lg">
 
           <li>
-            <Link
-              to="home"
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-red-500"
+            <a
+              href="#home"
+              className="hover:text-red-500 transition"
             >
               Home
-            </Link>
+            </a>
           </li>
 
           <li>
-            <Link
-              to="about"
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-red-500"
+            <a
+              href="#about"
+              className="hover:text-red-500 transition"
             >
               About
-            </Link>
+            </a>
           </li>
 
           <li>
-            <Link
-              to="plans"
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-red-500"
+            <a
+              href="#plans"
+              className="hover:text-red-500 transition"
             >
               Plans
-            </Link>
+            </a>
           </li>
 
           <li>
-            <Link
-              to="trainers"
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-red-500"
+            <a
+              href="#trainers"
+              className="hover:text-red-500 transition"
             >
               Trainers
-            </Link>
+            </a>
           </li>
 
           <li>
-            <Link
-              to="contact"
-              smooth={true}
-              duration={500}
-              className="cursor-pointer hover:text-red-500"
+            <a
+              href="#contact"
+              className="hover:text-red-500 transition"
             >
               Contact
-            </Link>
+            </a>
           </li>
 
         </ul>
 
         {/* Desktop Buttons */}
+
         <div className="hidden md:flex gap-4">
 
           <button
@@ -98,72 +92,67 @@ function Navbar() {
         </div>
 
         {/* Mobile Icon */}
+
         <div
           className="md:hidden text-3xl cursor-pointer"
           onClick={() => setMenu(!menu)}
         >
+
           {menu ? <FaTimes /> : <FaBars />}
+
         </div>
 
       </div>
 
       {/* Mobile Menu */}
+
       {menu && (
+
         <ul className="md:hidden flex flex-col gap-6 mt-8 text-center text-xl bg-black py-10 rounded-xl">
 
           <li>
-            <Link
-              to="home"
-              smooth={true}
-              duration={500}
+            <a
+              href="#home"
               onClick={() => setMenu(false)}
             >
               Home
-            </Link>
+            </a>
           </li>
 
           <li>
-            <Link
-              to="about"
-              smooth={true}
-              duration={500}
+            <a
+              href="#about"
               onClick={() => setMenu(false)}
             >
               About
-            </Link>
+            </a>
           </li>
 
           <li>
-            <Link
-              to="plans"
-              smooth={true}
-              duration={500}
+            <a
+              href="#plans"
               onClick={() => setMenu(false)}
             >
               Plans
-            </Link>
+            </a>
           </li>
 
           <li>
-            <Link
-              to="trainers"
-              smooth={true}
-              duration={500}
+            <a
+              href="#trainers"
               onClick={() => setMenu(false)}
             >
               Trainers
-            </Link>
+            </a>
           </li>
 
           <li>
-            <Link
-              to="contact"
-              smooth={true}
-              duration={500}
+            <a
+              href="#contact"
               onClick={() => setMenu(false)}
             >
               Contact
-            </Link>
+            </a>
           </li>
 
           <button
@@ -181,10 +170,13 @@ function Navbar() {
           </button>
 
         </ul>
+
       )}
 
     </nav>
+
   );
+
 }
 
 export default Navbar;
