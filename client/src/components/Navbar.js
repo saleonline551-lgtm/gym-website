@@ -10,6 +10,21 @@ function Navbar() {
 
   const navigate = useNavigate();
 
+  const scrollToSection = (id) => {
+
+    const section =
+      document.getElementById(id);
+
+    if (section) {
+
+      section.scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+  };
+
   return (
 
     <nav className="fixed top-0 w-full bg-black text-white px-10 py-5 z-50">
@@ -24,49 +39,39 @@ function Navbar() {
 
         <ul className="hidden md:flex gap-8 text-lg">
 
-          <li>
-            <a
-              href="#home"
-              className="hover:text-red-500 transition"
-            >
-              Home
-            </a>
+          <li
+            onClick={() => scrollToSection("home")}
+            className="cursor-pointer hover:text-red-500 transition"
+          >
+            Home
           </li>
 
-          <li>
-            <a
-              href="#about"
-              className="hover:text-red-500 transition"
-            >
-              About
-            </a>
+          <li
+            onClick={() => scrollToSection("about")}
+            className="cursor-pointer hover:text-red-500 transition"
+          >
+            About
           </li>
 
-          <li>
-            <a
-              href="#plans"
-              className="hover:text-red-500 transition"
-            >
-              Plans
-            </a>
+          <li
+            onClick={() => scrollToSection("plans")}
+            className="cursor-pointer hover:text-red-500 transition"
+          >
+            Plans
           </li>
 
-          <li>
-            <a
-              href="#trainers"
-              className="hover:text-red-500 transition"
-            >
-              Trainers
-            </a>
+          <li
+            onClick={() => scrollToSection("trainers")}
+            className="cursor-pointer hover:text-red-500 transition"
+          >
+            Trainers
           </li>
 
-          <li>
-            <a
-              href="#contact"
-              className="hover:text-red-500 transition"
-            >
-              Contact
-            </a>
+          <li
+            onClick={() => scrollToSection("contact")}
+            className="cursor-pointer hover:text-red-500 transition"
+          >
+            Contact
           </li>
 
         </ul>
@@ -110,49 +115,49 @@ function Navbar() {
 
         <ul className="md:hidden flex flex-col gap-6 mt-8 text-center text-xl bg-black py-10 rounded-xl">
 
-          <li>
-            <a
-              href="#home"
-              onClick={() => setMenu(false)}
-            >
-              Home
-            </a>
+          <li
+            onClick={() => {
+              scrollToSection("home");
+              setMenu(false);
+            }}
+          >
+            Home
           </li>
 
-          <li>
-            <a
-              href="#about"
-              onClick={() => setMenu(false)}
-            >
-              About
-            </a>
+          <li
+            onClick={() => {
+              scrollToSection("about");
+              setMenu(false);
+            }}
+          >
+            About
           </li>
 
-          <li>
-            <a
-              href="#plans"
-              onClick={() => setMenu(false)}
-            >
-              Plans
-            </a>
+          <li
+            onClick={() => {
+              scrollToSection("plans");
+              setMenu(false);
+            }}
+          >
+            Plans
           </li>
 
-          <li>
-            <a
-              href="#trainers"
-              onClick={() => setMenu(false)}
-            >
-              Trainers
-            </a>
+          <li
+            onClick={() => {
+              scrollToSection("trainers");
+              setMenu(false);
+            }}
+          >
+            Trainers
           </li>
 
-          <li>
-            <a
-              href="#contact"
-              onClick={() => setMenu(false)}
-            >
-              Contact
-            </a>
+          <li
+            onClick={() => {
+              scrollToSection("contact");
+              setMenu(false);
+            }}
+          >
+            Contact
           </li>
 
           <button
