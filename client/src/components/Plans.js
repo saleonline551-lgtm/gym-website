@@ -46,7 +46,7 @@ function Plans() {
     <div
       id="plans"
       data-aos="fade-up"
-      className="bg-gray-950 text-white py-20 px-10"
+      className="bg-gray-950 text-white py-20 px-10 scroll-mt-28"
     >
 
       <h1 className="text-5xl font-bold text-center mb-16">
