@@ -40,7 +40,7 @@ function About() {
   return (
 
     <section
-      id="about"
+      
       className="bg-black text-white py-20 px-10 scroll-mt-32"
     >
 

@@ -44,7 +44,7 @@ function Plans() {
   return (
 
     <section
-      id="plans"
+      
       data-aos="fade-up"
       className="bg-gray-950 text-white py-20 px-10"
     >
