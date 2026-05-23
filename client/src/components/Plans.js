@@ -91,7 +91,7 @@ function Plans() {
             ]).map((plan, index) => (
 
           <motion.div
-            key={index}
+            key={plan._id}
             initial={{
               opacity: 0,
               y: 80
@@ -126,7 +126,7 @@ function Plans() {
               {plan.features?.map(
                 (feature, i) => (
 
-                  <p key={i}>
+                  <p key={feature}>
                     ✅ {feature}
                   </p>
 

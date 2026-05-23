@@ -6,13 +6,12 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDsG5FQ0x2cL9qwSLrjid7-iAAxWXR-h5M",
-  authDomain: "gym-website-d45dd.firebaseapp.com",
-  projectId: "gym-website-d45dd",
-  storageBucket: "gym-website-d45dd.firebasestorage.app",
-  messagingSenderId: "737733047580",
-  appId: "1:737733047580:web:6b7b47a080cf1d542276d9",
-  measurementId: "G-673G0WMRNF"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

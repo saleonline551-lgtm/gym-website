@@ -43,8 +43,17 @@ const aboutGymRoutes =
 require("./routes/aboutGymRoutes");
 
 const app = express();
+app.disable("x-powered-by");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://gym-website.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
