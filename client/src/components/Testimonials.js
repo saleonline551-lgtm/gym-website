@@ -51,10 +51,10 @@ function Testimonials() {
 
       <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
 
-        {reviews.map((item, index) => (
+        {reviews.map((item) => (
 
           <motion.div
-            key={index}
+            key={item.id}
             initial={{
               opacity: 0,
               y: 80

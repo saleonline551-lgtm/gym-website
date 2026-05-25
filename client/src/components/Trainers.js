@@ -43,10 +43,10 @@ function Trainers() {
 
       <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
 
-        {trainers.map((trainer, index) => (
+        {trainers.map((trainer) => (
 
           <motion.div
-            key={index}
+            key={trainer.id}
             data-aos="fade-right"
             initial={{
               opacity: 0,
