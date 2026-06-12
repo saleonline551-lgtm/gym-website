@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
   try {
 
     const bookings =
-      await TrainerBooking.find();
+      await TrainerBooking.find().exec();
 
     res.status(200).json(bookings);
 
@@ -64,7 +64,7 @@ router.delete("/:id", async (req, res) => {
 
     await TrainerBooking.findByIdAndDelete(
       req.params.id
-    );
+    ).exec();
 
     res.status(200).json({
       message: "Booking Deleted",

@@ -39,8 +39,7 @@ router.get("/", async (req, res) => {
 
   try {
 
-    const about =
-      await AboutGym.findOne();
+   const about = await AboutGym.findOne().exec();
 
     res.status(200).json(
       about
@@ -60,62 +59,43 @@ router.get("/", async (req, res) => {
 // UPDATE ABOUT DATA
 
 router.put("/:id", async (req, res) => {
-
   try {
-
-    const about =
-      await AboutGym.findByIdAndUpdate(
-
+    const about = await AboutGym
+      .findByIdAndUpdate(
         req.params.id,
-
         req.body,
-
         {
           new: true,
         }
+      )
+      .exec();
 
-      );
-
-    res.status(200).json(
-      about
-    );
+    res.status(200).json(about);
 
   } catch (error) {
-
     res.status(500).json({
       message: error.message,
     });
-
   }
-
 });
-
 
 // DELETE ABOUT DATA
 
 router.delete("/:id", async (req, res) => {
-
   try {
-
-    await AboutGym.findByIdAndDelete(
-      req.params.id
-    );
+    await AboutGym
+      .findByIdAndDelete(req.params.id)
+      .exec();
 
     res.status(200).json({
-
-      message:
-        "About Gym Deleted",
-
+      message: "About Gym Deleted",
     });
 
   } catch (error) {
-
     res.status(500).json({
       message: error.message,
     });
-
   }
-
 });
 
 module.exports = router;

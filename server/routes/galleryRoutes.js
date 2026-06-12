@@ -43,7 +43,8 @@ router.get("/", async (req, res) => {
 
     const images =
       await Gallery.find()
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .exec();
 
     res.status(200).json(
       images
@@ -67,7 +68,7 @@ router.delete("/:id", async (req, res) => {
 
     await Gallery.findByIdAndDelete(
       req.params.id
-    );
+    ).exec();
 
     res.status(200).json({
       message: "Image Deleted",

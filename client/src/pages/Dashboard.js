@@ -208,6 +208,36 @@ function Dashboard() {
   const remainingDays =
     getRemainingDays();
 
+    let membershipAlert = null;
+
+if (myMembership) {
+  if (remainingDays <= 0) {
+    membershipAlert = (
+      <div className="bg-red-600 p-6 rounded-2xl mb-10">
+        <h1 className="text-3xl font-bold">
+          Membership Expired ❌
+        </h1>
+
+        <p className="mt-3 text-xl">
+          Renew your membership to continue gym access.
+        </p>
+      </div>
+    );
+  } else if (remainingDays <= 5) {
+    membershipAlert = (
+      <div className="bg-yellow-500 text-black p-6 rounded-2xl mb-10">
+        <h1 className="text-3xl font-bold">
+          Membership Expiring Soon ⚠️
+        </h1>
+
+        <p className="mt-3 text-xl">
+          Your membership will expire in {remainingDays} days.
+        </p>
+      </div>
+    );
+  }
+}
+
   return (
 
     <div className="min-h-screen bg-black text-white p-10">
@@ -237,48 +267,8 @@ function Dashboard() {
       </div>
 
 
-      {/* EXPIRY ALERT */}
-      {myMembership && (
-
-        remainingDays <= 0 ? (
-
-          <div className="bg-red-600 p-6 rounded-2xl mb-10">
-
-            <h1 className="text-3xl font-bold">
-              Membership Expired ❌
-            </h1>
-
-            <p className="mt-3 text-xl">
-              Renew your membership
-              to continue gym access.
-            </p>
-
-          </div>
-
-        ) : remainingDays <= 5 ? (
-
-          <div className="bg-yellow-500 text-black p-6 rounded-2xl mb-10">
-
-            <h1 className="text-3xl font-bold">
-              Membership Expiring Soon ⚠️
-            </h1>
-
-            <p className="mt-3 text-xl">
-
-              Your membership will
-              expire in
-              {" "}
-              {remainingDays}
-              {" "}
-              days.
-
-            </p>
-
-          </div>
-
-        ) : null
-
-      )}
+     {/* EXPIRY ALERT */}
+{membershipAlert}
 
 
   

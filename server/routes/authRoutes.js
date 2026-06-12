@@ -24,7 +24,7 @@ router.post("/register", async (req, res) => {
 
     const emailExists = await User.findOne({
       email
-    });
+    }).exec();
 
     if (emailExists) {
 
@@ -38,7 +38,7 @@ router.post("/register", async (req, res) => {
 
     const mobileExists = await User.findOne({
       mobile
-    });
+    }).exec();
 
     if (mobileExists) {
 
@@ -102,6 +102,14 @@ router.post("/login", async (req, res) => {
       password
     } = req.body;
 
+    if (!emailOrMobile || !password) {
+
+  return res.status(400).json({
+    message: "All fields are required"
+  });
+
+}
+
     // FIND USER BY EMAIL OR MOBILE
 
     const user = await User.findOne({
@@ -111,7 +119,7 @@ router.post("/login", async (req, res) => {
         { mobile: emailOrMobile }
       ]
 
-    });
+    }).exec();
 
     if (!user) {
 

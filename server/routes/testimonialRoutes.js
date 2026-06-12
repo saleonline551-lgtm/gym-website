@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
 
     const testimonials =
       await Testimonial.find()
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 }).exec();
 
     res.status(200).json(
       testimonials
@@ -73,7 +73,7 @@ router.put("/:id", async (req, res) => {
           new: true,
         }
 
-      );
+      ).exec();
 
     res.status(200).json(
       testimonial
@@ -98,7 +98,7 @@ router.delete("/:id", async (req, res) => {
 
     await Testimonial.findByIdAndDelete(
       req.params.id
-    );
+    ).exec();
 
     res.status(200).json({
 

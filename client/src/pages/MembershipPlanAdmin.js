@@ -189,18 +189,12 @@ function MembershipPlanAdmin() {
             </p>
 
             <ul className="mt-5 space-y-2">
-
-              {plan.features.map(
-                (feature, index) => (
-
-                  <li key={index}>
-                    • {feature}
-                  </li>
-
-                )
-              )}
-
-            </ul>
+  {plan.features.map((feature) => (
+    <li key={`${plan._id}-${feature}`}>
+      • {feature}
+    </li>
+  ))}
+</ul>
 
             <button
               onClick={() =>

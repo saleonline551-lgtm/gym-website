@@ -39,7 +39,8 @@ router.get("/", async (req, res) => {
 
     const plans =
       await MembershipPlan.find()
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .exec();
 
     res.status(200).json(plans);
 
@@ -71,7 +72,7 @@ router.put("/:id", async (req, res) => {
           new: true,
         }
 
-      );
+      ).exec();
 
     res.status(200).json(plan);
 
@@ -94,7 +95,7 @@ router.delete("/:id", async (req, res) => {
 
     await MembershipPlan.findByIdAndDelete(
       req.params.id
-    );
+    ).exec();
 
     res.status(200).json({
 

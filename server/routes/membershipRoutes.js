@@ -112,7 +112,8 @@ router.get("/", async (req, res) => {
   try {
 
     const memberships =
-      await Membership.find();
+      await Membership.find()
+      .exec();
 
     // AUTO EXPIRE CHECK
 
@@ -166,7 +167,7 @@ router.get(
           email:
             req.params.email,
 
-        });
+        }).exec();
 
       if (!customer) {
 
@@ -234,7 +235,7 @@ router.put(
             new: true,
           }
 
-        );
+        ).exec();
 
       res.status(200).json({
 
@@ -266,7 +267,7 @@ router.put("/renew/:id", async (req, res) => {
     const membership =
       await Membership.findById(
         req.params.id
-      );
+      ).exec();
 
     if (!membership) {
 
@@ -346,7 +347,7 @@ router.delete("/:id", async (req, res) => {
 
     await Membership.findByIdAndDelete(
       req.params.id
-    );
+    ).exec();
 
     res.status(200).json({
 

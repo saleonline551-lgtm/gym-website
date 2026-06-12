@@ -43,7 +43,8 @@ router.get("/", async (req, res) => {
 
     const diets =
       await Diet.find()
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .exec();
 
     res.status(200).json(
       diets
@@ -67,7 +68,7 @@ router.delete("/:id", async (req, res) => {
 
     await Diet.findByIdAndDelete(
       req.params.id
-    );
+    ).exec();
 
     res.status(200).json({
       message:

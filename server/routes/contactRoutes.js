@@ -43,7 +43,8 @@ router.get("/", async (req, res) => {
 
     const contacts =
       await Contact.find()
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .exec();
 
     res.status(200).json(
       contacts
@@ -67,7 +68,7 @@ router.delete("/:id", async (req, res) => {
 
     await Contact.findByIdAndDelete(
       req.params.id
-    );
+    ).exec();
 
     res.status(200).json({
 
