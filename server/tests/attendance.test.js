@@ -1,5 +1,7 @@
 const request = require("supertest");
 const app = require("../server");
+const Attendance = require("../models/Attendance");
+const User = require("../models/User");
 
 describe("Attendance API", () => {
 
@@ -90,5 +92,66 @@ test("Delete Attendance Fake ID", async () => {
     .toBe(200);
 
 });
+
+test("POST Attendance Server Error", async () => {
+
+  jest.spyOn(User, "findOne")
+    .mockImplementation(() => {
+      throw new Error("Database Error");
+    });
+
+  const response = await request(app)
+    .post("/api/attendance")
+    .send({
+      email: "test@gmail.com"
+    });
+
+  expect(response.statusCode).toBe(500);
+
+});
+
+test("GET Attendance Server Error", async () => {
+
+  jest.spyOn(Attendance, "find")
+    .mockImplementation(() => {
+      throw new Error("Database Error");
+    });
+
+  const response = await request(app)
+    .get("/api/attendance");
+
+  expect(response.statusCode).toBe(500);
+
+});
+
+test("GET User Attendance Error", async () => {
+
+  jest.spyOn(Attendance, "find")
+    .mockImplementation(() => {
+      throw new Error("Database Error");
+    });
+
+  const response = await request(app)
+    .get("/api/attendance/user/test@gmail.com");
+
+  expect(response.statusCode).toBe(500);
+
+});
+
+test("DELETE Attendance Error", async () => {
+
+  jest.spyOn(Attendance, "findByIdAndDelete")
+    .mockImplementation(() => {
+      throw new Error("Database Error");
+    });
+
+  const response = await request(app)
+    .delete("/api/attendance/507f1f77bcf86cd799439011");
+
+  expect(response.statusCode).toBe(500);
+
+});
+
+
 
 });

@@ -1,6 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
+const compression = require("compression");
+const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
 
 require("dotenv").config();
 
@@ -22,17 +26,48 @@ const app = express();
 
 app.disable("x-powered-by");
 
+
+
 app.use(
-cors({
-origin: [
-"http://localhost:3000",
-"https://gym-website.vercel.app",
-],
-credentials: true,
-})
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://gym-website.vercel.app",
+      "https://gym-website-eta-nine.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
 );
 
-app.use(express.json());
+
+app.use(express.json({limit: "10kb"}));
+/* SECURITY */
+
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+
+app.use(compression());
+
+app.use(hpp());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: {
+    message: "Too many requests. Please try again later.",
+  },
+});
+
+app.use(limiter);
+
+app.use((req, res, next) => {
+  res.setHeader("Cache-Control", "no-store");
+  next();
+});
 
 /* API ROUTES */
 

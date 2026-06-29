@@ -1,4 +1,4 @@
-const express = require("express");
+ const express = require("express");
 
 const AboutGym =
 require("../models/AboutGym");
@@ -13,10 +13,7 @@ router.post("/", async (req, res) => {
 
   try {
 
-    const about =
-      await AboutGym.create(
-        req.body
-      );
+    const about = await AboutGym.create(req.body);
 
     res.status(201).json(
       about
